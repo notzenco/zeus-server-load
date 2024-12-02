@@ -39,8 +39,33 @@ def log_success(message):
     """Log success messages."""
     logging.info(message)
 
-
 def display_menu(server):
+    """Display the menu-driven interface."""
+    init(autoreset=True)
+    while True:
+        print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}3. Tail Logs{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}4. Exit{Style.RESET_ALL}")
+        choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
+        if choice == '1':
+            hwid = input("Enter HWID to add: ")
+            if server.hwid_manager.add_hwid(hwid):
+                print(f"{Fore.GREEN}HWID '{hwid}' added successfully.{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}HWID '{hwid}' is already in the whitelist.{Style.RESET_ALL}")
+        elif choice == '2':
+            delete_hwid(server.hwid_manager)
+        elif choice == '3':
+            tail_logs()
+        elif choice == '4':
+            print("Exiting...")
+            server.shutdown()
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
     """Display the menu-driven interface."""
     init(autoreset=True)
     while True:
@@ -63,6 +88,32 @@ def display_menu(server):
             break
         else:
             print("Invalid choice. Please try again.")
+
+
+def delete_hwid(hwid_manager):
+    """Delete an HWID from the whitelist."""
+    hwid_list = hwid_manager.get_all_hwids()
+    if not hwid_list:
+        print(f"{Fore.YELLOW}No HWIDs to delete.{Style.RESET_ALL}")
+        input("Press any key to continue...")
+        return
+
+    print(f"{Fore.BLUE}List of HWIDs:{Style.RESET_ALL}")
+    for index, hwid in enumerate(hwid_list, start=1):
+        print(f"{index}. {hwid}")
+
+    try:
+        choice = int(input(f"{Fore.GREEN}Enter the number of the HWID to delete: {Style.RESET_ALL}"))
+        if 1 <= choice <= len(hwid_list):
+            hwid_to_delete = hwid_list[choice - 1]
+            if hwid_manager.delete_hwid(hwid_to_delete):
+                print(f"{Fore.GREEN}HWID '{hwid_to_delete}' deleted successfully.{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}Failed to delete HWID '{hwid_to_delete}'.{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.RED}Invalid selection. Please enter a number between 1 and {len(hwid_list)}.{Style.RESET_ALL}")
+    except ValueError:
+        print(f"{Fore.RED}Invalid input. Please enter a valid number.{Style.RESET_ALL}")
 
 
 def tail_logs():

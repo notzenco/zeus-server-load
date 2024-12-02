@@ -1,8 +1,5 @@
-
 import sqlite3
-import os
 import logging
-
 
 class HWIDManager:
     """Manages whitelisted HWIDs using SQLite database."""
@@ -39,6 +36,25 @@ class HWIDManager:
             return True
         except sqlite3.IntegrityError:
             logging.warning(f"HWID '{hwid}' is already in the whitelist.")
+            return False
+
+    def get_all_hwids(self):
+        """Retrieve all HWIDs from the database."""
+        cursor = self.conn.cursor()
+        cursor.execute('SELECT hwid FROM hwids ORDER BY id')
+        hwid_list = [row[0] for row in cursor.fetchall()]
+        return hwid_list
+
+    def delete_hwid(self, hwid):
+        """Delete an HWID from the whitelist."""
+        cursor = self.conn.cursor()
+        cursor.execute('DELETE FROM hwids WHERE hwid = ?', (hwid,))
+        self.conn.commit()
+        if cursor.rowcount > 0:
+            logging.info(f"HWID '{hwid}' deleted from whitelist.")
+            return True
+        else:
+            logging.warning(f"HWID '{hwid}' not found in the whitelist.")
             return False
 
     def close(self):
