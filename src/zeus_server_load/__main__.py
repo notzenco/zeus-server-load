@@ -2,6 +2,7 @@ import threading
 import signal
 import sys
 from zeus_server_load.hwid_manager import HWIDManager
+from zeus_server_load.config_manager import ConfigManager
 from zeus_server_load.utils import setup_logging, check_vigem_bus_driver, display_menu
 
 
@@ -21,6 +22,8 @@ def main():
 
     # Initialize HWID Manager
     hwid_manager = HWIDManager()
+    config_manager = ConfigManager()
+
 
     # Start the server in a separate thread
     server = CommandServer(hwid_manager)
@@ -28,7 +31,7 @@ def main():
     server_thread.start()
 
     # Run the menu interface in the main thread
-    display_menu(server)
+    display_menu(server, config_manager)
 
 
 def signal_handler(sig, frame):

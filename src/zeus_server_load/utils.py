@@ -13,6 +13,7 @@ import os
 import vgamepad as vg
 import subprocess
 import webbrowser
+import socket
 
 
 
@@ -39,15 +40,105 @@ def log_success(message):
     """Log success messages."""
     logging.info(message)
 
-def display_menu(server):
+
+def get_local_ip():
+    """Get the local IPv4 address."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # This doesn't need to be a reachable address
+        s.connect(('10.255.255.255', 1))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = '127.0.0.1'
+    finally:
+        s.close()
+    return ip
+
+def get_public_ip():
+    """Get the public IPv4 address using multiple services."""
+    services = [
+        'https://api.ipify.org',
+        'https://ifconfig.me/ip',
+        'https://checkip.amazonaws.com'
+    ]
+    for service in services:
+        try:
+            response = requests.get(service, timeout=5)
+            if response.status_code == 200:
+                ip = response.text.strip()
+                return ip
+        except requests.RequestException:
+            continue
+    logging.error("Failed to retrieve public IP from all services.")
+    return None
+
+
+def display_menu(server, config_manager):
     """Display the menu-driven interface."""
     init(autoreset=True)
     while True:
+        # Clear the screen for better readability
+        if os.name == 'nt':  # For Windows
+            os.system('cls')
+        else:
+            os.system('clear')
+
+        # Get the public and local IP addresses
+        public_ip = get_public_ip()
+        local_ip = get_local_ip()
+
+        # Display the header and IP addresses
+        print(f"{Fore.CYAN}[Zeus Server Script CoDBo6]{Style.RESET_ALL}")
+        if public_ip:
+            print(f"The lobby manager can connect to this with Public IP: {Fore.GREEN}{public_ip}{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.RED}Unable to retrieve public IP address.{Style.RESET_ALL}")
+            print("Please ensure the server has internet access.")
+
+        print(f"The lobby manager can connect to this with Local IP: {Fore.YELLOW}{local_ip}{Style.RESET_ALL}")
+
+        # Display the menu options
         print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}3. Tail Logs{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}4. Exit{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}3. Set Chrome Shortcuts Path{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}4. Tail Logs{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}5. Exit{Style.RESET_ALL}")
+        choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
+
+        if choice == '1':
+            hwid = input("Enter HWID to add: ")
+            if server.hwid_manager.add_hwid(hwid):
+                print(f"{Fore.GREEN}HWID '{hwid}' added successfully.{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}HWID '{hwid}' is already in the whitelist.{Style.RESET_ALL}")
+            input("Press Enter to continue...")
+        elif choice == '2':
+            delete_hwid(server.hwid_manager)
+        elif choice == '3':
+            set_chrome_shortcuts_path(config_manager)
+        elif choice == '4':
+            tail_logs()
+        elif choice == '5':
+            print("Exiting...")
+            server.shutdown()
+            break
+        else:
+            print("Invalid choice. Please try again.")
+            input("Press Enter to continue...")
+    """Display the menu-driven interface."""
+    init(autoreset=True)
+    while True:
+        if os.name == 'nt':  # For Windows
+           os.system('cls')
+        else:
+            os.system('clear')
+        print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}3. Set Chrome Shortcuts Path{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}4. Tail Logs{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}5. Exit{Style.RESET_ALL}")
         choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
         if choice == '1':
             hwid = input("Enter HWID to add: ")
@@ -58,36 +149,35 @@ def display_menu(server):
         elif choice == '2':
             delete_hwid(server.hwid_manager)
         elif choice == '3':
-            tail_logs()
+            set_chrome_shortcuts_path(config_manager)
         elif choice == '4':
+            tail_logs()
+        elif choice == '5':
             print("Exiting...")
             server.shutdown()
             break
         else:
             print("Invalid choice. Please try again.")
 
-    """Display the menu-driven interface."""
-    init(autoreset=True)
-    while True:
-        print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}2. Tail Logs{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}3. Exit{Style.RESET_ALL}")
-        choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
-        if choice == '1':
-            hwid = input("Enter HWID to add: ")
-            if server.hwid_manager.add_hwid(hwid):
-                print(f"{Fore.GREEN}HWID '{hwid}' added successfully.{Style.RESET_ALL}")
-            else:
-                print(f"{Fore.RED}HWID '{hwid}' is already in the whitelist.{Style.RESET_ALL}")
-        elif choice == '2':
-            tail_logs()
-        elif choice == '3':
-            print("Exiting...")
-            server.shutdown()
-            break
-        else:
-            print("Invalid choice. Please try again.")
+
+def set_chrome_shortcuts_path(config_manager):
+    """Set or update the Chrome shortcuts location or path."""
+    existing_path = config_manager.get_config('chrome_shortcuts_path')
+    if existing_path:
+        print(f"{Fore.BLUE}Existing Chrome Shortcuts Path:{Style.RESET_ALL} {existing_path}")
+    else:
+        print(f"{Fore.YELLOW}No Chrome Shortcuts Path is currently set.{Style.RESET_ALL}")
+
+    print("Enter '0' to go back.")
+    new_path = input("Enter the new path to save/update: ").strip()
+    if new_path == '0':
+        return
+    elif new_path:
+        config_manager.set_config('chrome_shortcuts_path', new_path)
+        print(f"{Fore.GREEN}Chrome Shortcuts Path updated to: {new_path}{Style.RESET_ALL}")
+    else:
+        print(f"{Fore.RED}No path entered. Please try again.{Style.RESET_ALL}")
+
 
 
 def delete_hwid(hwid_manager):
