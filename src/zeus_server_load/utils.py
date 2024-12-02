@@ -43,10 +43,7 @@ def log_success(message):
 def display_menu(server):
     """Display the menu-driven interface."""
     init(autoreset=True)
-    start_time = datetime.now()
     while True:
-        uptime = datetime.now() - start_time
-        print(f"\n{Fore.CYAN}Zeus Server Load - Uptime: {str(uptime).split('.')[0]}{Style.RESET_ALL}")
         print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}2. Tail Logs{Style.RESET_ALL}")
@@ -87,6 +84,19 @@ def tail_logs():
                 print(line, end='')
     except KeyboardInterrupt:
         print("\nExiting log tail.")
+
+
+def setup_chrome_driver():
+    """Set up ChromeDriver using webdriver-manager."""
+    try:
+        log_info("Setting up ChromeDriver...")
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service)
+        log_success("ChromeDriver setup complete.")
+        return driver
+    except Exception as e:
+        log_error(f"Failed to set up ChromeDriver: {e}")
+        raise
 
 
 
