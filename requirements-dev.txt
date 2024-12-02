@@ -1,3 +1,5 @@
 colorama
 vgamepad
 requests
+selenium
+webdriver-manager

@@ -1,0 +1,109 @@
+[2024-12-02 21:05:59,276] ERROR: ViGEmBus driver is not installed.
+[2024-12-02 21:06:37,206] INFO: Downloading ViGEmBus driver installer...
+[2024-12-02 21:06:37,799] ERROR: Failed to download or launch ViGEmBus installer: 404 Client Error: Not Found for url: https://github.com/nefarius/ViGEmBus/releases/download/v1.22.0/ViGEmBus_Setup_1.22.0.exe
+[2024-12-02 21:19:40,862] ERROR: ViGEmBus driver is not installed.
+[2024-12-02 21:19:43,027] ERROR: ViGEmBus installer not found in package.
+[2024-12-02 21:20:12,022] ERROR: ViGEmBus driver is not installed.
+[2024-12-02 21:20:14,212] INFO: Launching ViGEmBus installer from C:\Users\satya\Documents\zeus-server-load\src\zeus_server_load\ViGEmBus_Setup_1.22.0.exe
+[2024-12-02 21:20:30,111] INFO: ViGEmBus installer launched.
+[2024-12-02 21:20:36,735] ERROR: ViGEmBus driver is not installed.
+[2024-12-02 21:20:44,215] INFO: Launching ViGEmBus installer from C:\Users\satya\Documents\zeus-server-load\src\zeus_server_load\ViGEmBus_Setup_1.22.0.exe
+[2024-12-02 21:20:53,604] ERROR: Failed to launch ViGEmBus installer: Command '['C:\\Users\\satya\\Documents\\zeus-server-load\\src\\zeus_server_load\\ViGEmBus_Setup_1.22.0.exe']' returned non-zero exit status 1602.
+[2024-12-02 21:20:59,052] ERROR: ViGEmBus driver is not installed.
+[2024-12-02 21:54:12,596] INFO: Checking Google Chrome version...
+[2024-12-02 21:54:12,663] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 21:54:12,663] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 21:54:12,663] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 21:54:13,028] INFO: Downloading ChromeDriver from: https://chromedriver.storage.googleapis.com/<?xml version='1.0' encoding='UTF-8'?><Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Details>No such object: chromedriver/LATEST_RELEASE_131</Details></Error>/chromedriver_win32.zip
+[2024-12-02 21:54:13,376] INFO: Extracting ChromeDriver...
+[2024-12-02 21:54:13,386] ERROR: Failed to download ChromeDriver: File is not a zip file
+[2024-12-02 21:54:13,386] ERROR: Dependency check failed: File is not a zip file
+[2024-12-02 22:03:05,045] ERROR: An unexpected error occurred while checking ViGEmBus driver: 'VX360Gamepad' object has no attribute 'disconnect'
+[2024-12-02 22:07:36,203] ERROR: An unexpected error occurred while checking ViGEmBus driver: 'VX360Gamepad' object has no attribute 'disconnect'
+[2024-12-02 22:07:39,588] INFO: Launching ViGEmBus installer from C:\Users\satya\Documents\zeus-server-load\src\zeus_server_load\ViGEmBus_Setup_1.22.0.exe
+[2024-12-02 22:07:57,637] ERROR: Failed to launch ViGEmBus installer: Command '['C:\\Users\\satya\\Documents\\zeus-server-load\\src\\zeus_server_load\\ViGEmBus_Setup_1.22.0.exe']' returned non-zero exit status 1602.
+[2024-12-02 22:09:57,928] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:09:57,928] INFO: Checking Google Chrome version...
+[2024-12-02 22:09:57,981] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 22:09:57,981] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 22:09:57,981] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 22:09:58,955] INFO: Downloading ChromeDriver from: https://chromedriver.storage.googleapis.com/<?xml version='1.0' encoding='UTF-8'?><Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Details>No such object: chromedriver/LATEST_RELEASE_131</Details></Error>/chromedriver_win32.zip
+[2024-12-02 22:09:59,291] INFO: Extracting ChromeDriver...
+[2024-12-02 22:09:59,307] ERROR: Failed to download ChromeDriver: File is not a zip file
+[2024-12-02 22:09:59,307] ERROR: Dependency check failed: File is not a zip file
+[2024-12-02 22:13:47,789] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:13:47,789] INFO: Checking Google Chrome version...
+[2024-12-02 22:13:47,826] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 22:13:47,826] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 22:13:47,826] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 22:13:48,178] ERROR: Failed to download ChromeDriver: name 'printf' is not defined
+[2024-12-02 22:13:48,178] ERROR: Dependency check failed: name 'printf' is not defined
+[2024-12-02 22:14:16,652] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:14:16,654] INFO: Checking Google Chrome version...
+[2024-12-02 22:14:16,683] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 22:14:16,683] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 22:14:16,683] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 22:14:17,037] INFO: Downloading ChromeDriver from: https://chromedriver.storage.googleapis.com/<?xml version='1.0' encoding='UTF-8'?><Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Details>No such object: chromedriver/LATEST_RELEASE_131</Details></Error>/chromedriver_win32.zip
+[2024-12-02 22:14:17,387] INFO: Extracting ChromeDriver...
+[2024-12-02 22:14:17,391] ERROR: Failed to download ChromeDriver: File is not a zip file
+[2024-12-02 22:14:17,391] ERROR: Dependency check failed: File is not a zip file
+[2024-12-02 22:19:47,039] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:19:47,039] INFO: Checking Google Chrome version...
+[2024-12-02 22:19:47,074] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 22:19:47,074] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 22:19:47,074] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 22:19:47,074] INFO: Fetching the latest ChromeDriver version for Chrome 131...
+[2024-12-02 22:19:47,936] ERROR: Failed to download ChromeDriver: Failed to retrieve the latest ChromeDriver version for Chrome 131
+[2024-12-02 22:19:47,936] ERROR: Dependency check failed: Failed to retrieve the latest ChromeDriver version for Chrome 131
+[2024-12-02 22:20:40,829] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:20:40,829] INFO: Checking Google Chrome version...
+[2024-12-02 22:20:40,865] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 22:20:40,865] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 22:20:40,865] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 22:20:40,865] INFO: Fetching the latest ChromeDriver version for Chrome 131...
+[2024-12-02 22:20:41,223] ERROR: Failed to download ChromeDriver: Failed to retrieve the latest ChromeDriver version for Chrome 131
+[2024-12-02 22:20:41,223] ERROR: Dependency check failed: Failed to retrieve the latest ChromeDriver version for Chrome 131
+[2024-12-02 22:26:05,909] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:26:05,909] INFO: Checking Google Chrome version...
+[2024-12-02 22:26:05,957] INFO: Google Chrome version detected: 131.0.6778.86
+[2024-12-02 22:26:05,957] INFO: ChromeDriver not found. Downloading...
+[2024-12-02 22:26:05,957] INFO: Determining the correct ChromeDriver version...
+[2024-12-02 22:26:05,957] INFO: Fetching the latest ChromeDriver version for Chrome 131.0.6778...
+[2024-12-02 22:26:06,312] ERROR: Failed to download ChromeDriver: Failed to retrieve the latest ChromeDriver version for Chrome 131.0.6778
+[2024-12-02 22:26:06,312] ERROR: Dependency check failed: Failed to retrieve the latest ChromeDriver version for Chrome 131.0.6778
+[2024-12-02 22:38:21,558] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:38:21,560] INFO: Setting up ChromeDriver...
+[2024-12-02 22:38:21,560] INFO: ====== WebDriver manager ======
+[2024-12-02 22:38:24,496] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:38:24,555] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:38:24,586] INFO: There is no [win64] chromedriver "131.0.6778.85" for browser google-chrome "131.0.6778" in cache
+[2024-12-02 22:38:24,586] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:38:24,700] INFO: WebDriver version 131.0.6778.85 selected
+[2024-12-02 22:38:24,700] INFO: Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/win32/chromedriver-win32.zip
+[2024-12-02 22:38:24,716] INFO: About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/win32/chromedriver-win32.zip
+[2024-12-02 22:38:24,835] INFO: Driver downloading response is 200
+[2024-12-02 22:38:25,139] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:38:25,433] INFO: Driver has been saved in cache [C:\Users\satya\.wdm\drivers\chromedriver\win64\131.0.6778.85]
+[2024-12-02 22:38:30,576] INFO: ChromeDriver setup complete.
+[2024-12-02 22:38:30,576] INFO: Setting up ChromeDriver...
+[2024-12-02 22:38:30,576] INFO: ====== WebDriver manager ======
+[2024-12-02 22:38:32,769] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:38:35,943] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:38:36,000] INFO: Driver [C:\Users\satya\.wdm\drivers\chromedriver\win64\131.0.6778.85\chromedriver-win32/chromedriver.exe] found in cache
+[2024-12-02 22:38:37,207] INFO: ChromeDriver setup complete.
+[2024-12-02 22:38:37,282] INFO: Server listening on 0.0.0.0:9999
+[2024-12-02 22:39:39,042] INFO: ViGEmBus driver is installed and operational.
+[2024-12-02 22:39:39,044] INFO: Setting up ChromeDriver...
+[2024-12-02 22:39:39,044] INFO: ====== WebDriver manager ======
+[2024-12-02 22:39:41,083] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:39:41,148] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:39:41,200] INFO: Driver [C:\Users\satya\.wdm\drivers\chromedriver\win64\131.0.6778.85\chromedriver-win32/chromedriver.exe] found in cache
+[2024-12-02 22:39:42,420] INFO: ChromeDriver setup complete.
+[2024-12-02 22:39:42,420] INFO: Setting up ChromeDriver...
+[2024-12-02 22:39:42,420] INFO: ====== WebDriver manager ======
+[2024-12-02 22:39:44,593] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:39:46,800] INFO: Get LATEST chromedriver version for google-chrome
+[2024-12-02 22:39:46,832] INFO: Driver [C:\Users\satya\.wdm\drivers\chromedriver\win64\131.0.6778.85\chromedriver-win32/chromedriver.exe] found in cache
+[2024-12-02 22:39:48,022] INFO: ChromeDriver setup complete.
+[2024-12-02 22:39:48,044] INFO: Server listening on 0.0.0.0:9999
+[2024-12-02 22:40:02,784] INFO: HWID 'ssssss' added to whitelist.

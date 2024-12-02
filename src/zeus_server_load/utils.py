@@ -7,6 +7,13 @@ import requests
 import zipfile
 from colorama import init, Fore, Style
 from datetime import datetime
+import ctypes
+import sys
+import os
+import vgamepad as vg
+import subprocess
+import webbrowser
+
 
 
 def setup_logging():
@@ -82,70 +89,65 @@ def tail_logs():
         print("\nExiting log tail.")
 
 
-def check_and_install_dependencies():
-    """Check and install required dependencies."""
+
+
+
+    """Set up ChromeDriver using webdriver-manager."""
     try:
-        # Check Google Chrome version
-        chrome_version = get_chrome_version()
-        log_success(f"Google Chrome version detected: {chrome_version}")
-
-        # Check or install ChromeDriver
-        if not os.path.exists("chromedriver/chromedriver"):
-            log_info("ChromeDriver not found. Downloading...")
-            download_chromedriver(chrome_version)
-        else:
-            log_success("ChromeDriver already exists.")
+        log_info("Setting up ChromeDriver...")
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service)
+        log_success("ChromeDriver setup complete.")
+        return driver
     except Exception as e:
-        log_error(f"Dependency check failed: {e}")
+        log_error(f"Failed to set up ChromeDriver: {e}")
         raise
-
-
-def get_chrome_version():
-    """Get the version of installed Google Chrome."""
-    log_info("Checking Google Chrome version...")
-    try:
-        system = platform.system()
-        if system == "Windows":
-            command = r'reg query "HKEY_CURRENT_USER\Software\Google\Chrome\BLBeacon" /v version'
-            version = subprocess.check_output(command, shell=True).decode().strip()
-            return version.split()[-1]
-        elif system == "Darwin":  # macOS
-            command = "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version"
-            version = subprocess.check_output(command, shell=True).decode().strip()
-            return version.split()[-1]
-        elif system == "Linux":
-            command = "google-chrome --version"
-            version = subprocess.check_output(command, shell=True).decode().strip()
-            return version.split()[-1]
-        else:
-            raise Exception("Unsupported Operating System")
-    except Exception as e:
-        log_error(f"Could not detect Google Chrome version: {e}")
-        raise
-
-
-def download_chromedriver(chrome_version):
     """Download the ChromeDriver that matches the installed Google Chrome version."""
     try:
         log_info("Determining the correct ChromeDriver version...")
-        major_version = chrome_version.split(".")[0]
-        url = f"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_{major_version}"
-        latest_driver_version = requests.get(url).text.strip()
 
+        # Extract the full prefix of the Chrome version (e.g., '72.0.3626')
+        version_prefix = ".".join(chrome_version.split(".")[:3])
+        url = f"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_{version_prefix}"
+        
+        log_info(f"Fetching the latest ChromeDriver version for Chrome {version_prefix}...")
+        response = requests.get(url)
+        if response.status_code != 200 or "Error" in response.text:
+            raise Exception(f"Failed to retrieve the latest ChromeDriver version for Chrome {version_prefix}")
+        
+        latest_driver_version = response.text.strip()
+
+        # Detect the system platform and architecture
         system = platform.system().lower()
-        if system == 'darwin':
-            system = 'mac64'  # For macOS
-        elif system == 'windows':
-            system = 'win32'
-        elif system == 'linux':
-            system = 'linux64'
+        arch = platform.machine().lower()
+        
+        # Map OS and architecture to ChromeDriver download filenames
+        if system == "windows":
+            if "arm" in arch or "aarch64" in arch:
+                system = "win_arm64"
+            else:
+                system = "win32"
+        elif system == "linux":
+            if "arm" in arch or "aarch64" in arch:
+                system = "linux_arm64"
+            else:
+                system = "linux64"
+        elif system == "darwin":  # macOS
+            if "arm" in arch or "aarch64" in arch:
+                system = "mac_arm64"
+            else:
+                system = "mac64"
         else:
             raise Exception("Unsupported Operating System for ChromeDriver")
 
         driver_download_url = f"https://chromedriver.storage.googleapis.com/{latest_driver_version}/chromedriver_{system}.zip"
         log_info(f"Downloading ChromeDriver from: {driver_download_url}")
 
+        # Download and save ChromeDriver
         response = requests.get(driver_download_url, stream=True)
+        if response.status_code != 200:
+            raise Exception(f"Failed to download ChromeDriver from {driver_download_url}")
+        
         zip_path = "chromedriver.zip"
         with open(zip_path, "wb") as file:
             file.write(response.content)
@@ -163,3 +165,115 @@ def download_chromedriver(chrome_version):
     except Exception as e:
         log_error(f"Failed to download ChromeDriver: {e}")
         raise
+
+    """Download the ChromeDriver that matches the installed Google Chrome version."""
+    try:
+        log_info("Determining the correct ChromeDriver version...")
+        major_version = chrome_version.split(".")[0]
+        url = f"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_{major_version}"
+        print(url)
+        
+        log_info(f"Fetching the latest ChromeDriver version for Chrome {major_version}...")
+        response = requests.get(url)
+        if response.status_code != 200 or "Error" in response.text:
+            raise Exception(f"Failed to retrieve the latest ChromeDriver version for Chrome {major_version}")
+        
+        latest_driver_version = response.text.strip()
+
+        system = platform.system().lower()
+        arch = platform.machine().lower()
+        
+        # Map OS and architecture to ChromeDriver download filenames
+        if system == "windows":
+            if "arm" in arch or "aarch64" in arch:
+                system = "win_arm64"
+            else:
+                system = "win32"
+        elif system == "linux":
+            if "arm" in arch or "aarch64" in arch:
+                system = "linux_arm64"
+            else:
+                system = "linux64"
+        elif system == "darwin":  # macOS
+            if "arm" in arch or "aarch64" in arch:
+                system = "mac_arm64"
+            else:
+                system = "mac64"
+        else:
+            raise Exception("Unsupported Operating System for ChromeDriver")
+
+        driver_download_url = f"https://chromedriver.storage.googleapis.com/{latest_driver_version}/chromedriver_{system}.zip"
+        log_info(f"Downloading ChromeDriver from: {driver_download_url}")
+
+        # Download and save ChromeDriver
+        response = requests.get(driver_download_url, stream=True)
+        if response.status_code != 200:
+            raise Exception(f"Failed to download ChromeDriver from {driver_download_url}")
+        
+        zip_path = "chromedriver.zip"
+        with open(zip_path, "wb") as file:
+            file.write(response.content)
+
+        # Extract the downloaded zip
+        log_info("Extracting ChromeDriver...")
+        with zipfile.ZipFile(zip_path, "r") as zip_ref:
+            zip_ref.extractall("chromedriver")
+
+        # Clean up
+        os.remove(zip_path)
+        chromedriver_path = os.path.abspath("chromedriver/chromedriver")
+        log_success(f"ChromeDriver downloaded and available at: {chromedriver_path}")
+        return chromedriver_path
+    except Exception as e:
+        log_error(f"Failed to download ChromeDriver: {e}")
+        raise
+
+
+def check_vigem_bus_driver():
+    """Check if ViGEmBus driver is installed and operational on Windows."""
+    if sys.platform != "win32":
+        logging.error("ViGEmBus driver check is only applicable on Windows.")
+        return False
+
+    try:
+        # Attempt to create a gamepad instance
+        from zeus_server_load.server import CommandServer
+        logging.info("ViGEmBus driver is installed and operational.")
+        return True
+    except Exception as e:
+        logging.error(f"An unexpected error occurred while checking ViGEmBus driver: {e}")
+        user_input = input("Would you like to download and install it now? (y/n): ")
+        if user_input.lower() == 'y':
+            download_and_install_vigem_bus()
+        else:
+            print("Cannot proceed without ViGEmBus driver. Exiting.")
+            sys.exit(1)
+        return False
+
+def download_and_install_vigem_bus():
+    """Launch the ViGEmBus driver installer included with the package."""
+    try:
+        installer_path = os.path.join(os.path.dirname(__file__), "ViGEmBus_Setup_1.22.0.exe")
+
+        if not os.path.exists(installer_path):
+            print("ViGEmBus installer not found in package.")
+            logging.error("ViGEmBus installer not found in package.")
+            sys.exit(1)
+
+        print("Launching ViGEmBus installer...")
+        logging.info(f"Launching ViGEmBus installer from {installer_path}")
+        subprocess.run([installer_path], check=True)
+
+        print("ViGEmBus installer launched. Please follow the on-screen instructions to complete the installation.")
+        logging.info("ViGEmBus installer launched.")
+
+        # After installation, check again
+        input("Press Enter after you have completed the installation to continue...")
+        if not check_vigem_bus_driver():
+            print("ViGEmBus driver still not detected. Exiting.")
+            sys.exit(1)
+    except Exception as e:
+        logging.error(f"Failed to launch ViGEmBus installer: {e}")
+        print(f"An error occurred while launching the installer: {e}")
+        print("Please download and install the ViGEmBus driver manually from https://github.com/ViGEm/ViGEmBus/releases")
+        sys.exit(1)
