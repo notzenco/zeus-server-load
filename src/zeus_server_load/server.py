@@ -41,7 +41,7 @@ class CommandServer:
 
                     logging.info(f"Received command: {data}")
 
-                    if data == "press_healthcheck":
+                    if data == "healthCheck":
                         conn.sendall("alive".encode())
                     elif data in self.get_supported_commands():
                         self.execute_gamepad_command(data)

@@ -4,7 +4,6 @@ import threading
 import vgamepad as vg
 import logging
 
-
 class GamepadController:
     def __init__(self):
         self.running = True
@@ -32,25 +31,52 @@ class GamepadController:
         """Set Anti-AFK settings."""
         if interval is not None:
             self.anti_afk_interval = interval
+            logging.info(f"Anti-AFK interval set to {interval} seconds")
         if right_bumper_duration is not None:
             self.right_bumper_duration = right_bumper_duration
+            logging.info(f"Right Bumper duration set to {right_bumper_duration} seconds")
         if left_bumper_duration is not None:
             self.left_bumper_duration = left_bumper_duration
+            logging.info(f"Left Bumper duration set to {left_bumper_duration} seconds")
         if delay_between_buttons is not None:
             self.delay_between_buttons = delay_between_buttons
+            logging.info(f"Delay between buttons set to {delay_between_buttons} seconds")
 
     def set_movement_settings(self, min_movement_duration=None, max_movement_duration=None, min_break_duration=None, max_break_duration=None):
         """Set movement simulation settings."""
         if min_movement_duration is not None:
             self.min_movement_duration = min_movement_duration
+            logging.info(f"Minimum movement duration set to {min_movement_duration} seconds")
         if max_movement_duration is not None:
             self.max_movement_duration = max_movement_duration
+            logging.info(f"Maximum movement duration set to {max_movement_duration} seconds")
         if min_break_duration is not None:
             self.min_break_duration = min_break_duration
+            logging.info(f"Minimum break duration set to {min_break_duration} seconds")
         if max_break_duration is not None:
             self.max_break_duration = max_break_duration
+            logging.info(f"Maximum break duration set to {max_break_duration} seconds")
 
-    # Existing methods remain unchanged
+    def get_supported_commands(self):
+        """Return a list of supported gamepad commands."""
+        return [
+            "press_a", "press_b", "press_x", "press_y",
+            "press_lb", "press_rb", "press_lt", "press_rt",
+            "press_dpad_up", "press_dpad_down", "press_dpad_left", "press_dpad_right",
+            "press_start", "press_back", "press_ls", "press_rs"
+        ]
+
+    def execute_gamepad_command(self, command):
+        """Execute the corresponding gamepad command."""
+        try:
+            method = getattr(self, command)
+            method()
+            logging.info(f"Executed gamepad command: {command}")
+        except AttributeError:
+            logging.error(f"Unsupported gamepad command: {command}")
+        except Exception as e:
+            logging.error(f"Failed to execute gamepad command '{command}': {e}")
+
     def anti_afk_loop(self):
         """Anti-AFK loop that periodically presses buttons."""
         logging.info("Anti-AFK loop started")
@@ -129,29 +155,17 @@ class GamepadController:
     def press_rs(self):
         self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_THUMB, "Right Stick Click")
 
-    def move_dpad_up(self):
-        self._move_dpad(vg.DPAD.UP, "DPAD UP")
+    def press_dpad_up(self):
+        self._press_dpad(vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_UP, "DPAD UP")
 
-    def move_dpad_down(self):
-        self._move_dpad(vg.DPAD.DOWN, "DPAD DOWN")
+    def press_dpad_down(self):
+        self._press_dpad(vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_DOWN, "DPAD DOWN")
 
-    def move_dpad_left(self):
-        self._move_dpad(vg.DPAD.LEFT, "DPAD LEFT")
+    def press_dpad_left(self):
+        self._press_dpad(vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_LEFT, "DPAD LEFT")
 
-    def move_dpad_right(self):
-        self._move_dpad(vg.DPAD.RIGHT, "DPAD RIGHT")
-
-    def move_left_stick(self, x, y):
-        with self.lock:
-            self.gamepad.left_joystick_float(x_value_float=x, y_value_float=y)
-            self.gamepad.update()
-        logging.info(f"Moved Left Stick to ({x}, {y})")
-
-    def move_right_stick(self, x, y):
-        with self.lock:
-            self.gamepad.right_joystick_float(x_value_float=x, y_value_float=y)
-            self.gamepad.update()
-        logging.info(f"Moved Right Stick to ({x}, {y})")
+    def press_dpad_right(self):
+        self._press_dpad(vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_RIGHT, "DPAD RIGHT")
 
     # Helper Methods for Actions
     def _press_button(self, button, name):
@@ -168,23 +182,23 @@ class GamepadController:
         with self.lock:
             if trigger == 0:  # LT
                 self.gamepad.left_trigger(value=255)
-            elif trigger == 1:  # RT
-                self.gamepad.right_trigger(value=255)
-            self.gamepad.update()
-            time.sleep(0.1)
-            if trigger == 0:  # LT
+                self.gamepad.update()
+                time.sleep(0.1)
                 self.gamepad.left_trigger(value=0)
             elif trigger == 1:  # RT
+                self.gamepad.right_trigger(value=255)
+                self.gamepad.update()
+                time.sleep(0.1)
                 self.gamepad.right_trigger(value=0)
             self.gamepad.update()
 
-    def _move_dpad(self, direction, name):
-        logging.info(f"Moving '{name}'")
+    def _press_dpad(self, button, name):
+        logging.info(f"Pressing '{name}'")
         with self.lock:
-            self.gamepad.d_pad(direction)
+            self.gamepad.press_button(button)
             self.gamepad.update()
             time.sleep(0.1)
-            self.gamepad.d_pad(vg.DPAD.OFF)
+            self.gamepad.release_button(button)
             self.gamepad.update()
 
     def toggle_mode(self, mode):
