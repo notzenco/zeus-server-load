@@ -43,7 +43,7 @@ class CommandServer:
 
                     if data == "healthCheck":
                         conn.sendall("alive".encode())
-                    elif data in self.get_supported_commands():
+                    elif data in self.gamepad_controller.get_supported_commands():
                         self.execute_gamepad_command(data)
                         conn.sendall(f"Executed command: {data}".encode())
                     elif data == "start_anti_afk":
@@ -64,14 +64,7 @@ class CommandServer:
             except Exception as e:
                 logging.error(f"Error handling client {addr}: {e}")
 
-    def get_supported_commands(self):
-        """Return a list of supported gamepad commands."""
-        return [
-            "press_a", "press_b", "press_x", "press_y",
-            "press_lb", "press_rb", "press_lt", "press_rt",
-            "press_up", "press_down", "press_left", "press_right",
-            "press_start", "press_back", "press_ls", "press_rs"
-        ]
+
 
     def execute_gamepad_command(self, command):
         """Execute the corresponding gamepad command."""
