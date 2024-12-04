@@ -151,3 +151,249 @@
 [2024-12-02 23:56:15,233] INFO: Configuration 'chrome_shortcuts_path' set to 'ffg fgg'.
 [2024-12-03 00:05:06,976] INFO: ViGEmBus driver is installed and operational.
 [2024-12-03 00:05:06,994] INFO: Server listening on 0.0.0.0:9999
+[2024-12-03 00:05:18,523] INFO: ViGEmBus driver is installed and operational.
+[2024-12-03 00:05:18,549] INFO: Server listening on 0.0.0.0:9999
+[2024-12-04 21:14:12,579] INFO: ViGEmBus driver is installed and operational.
+[2024-12-04 21:14:12,616] INFO: Server listening on 0.0.0.0:9999
+[2024-12-04 21:15:15,319] INFO: Connected to ('192.168.7.1', 58196)
+[2024-12-04 21:15:15,711] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:15:15,711] ERROR: Error handling client ('192.168.7.1', 58196): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 11580 and this is thread id 11656.
+[2024-12-04 21:15:18,148] INFO: Connected to ('192.168.7.1', 58204)
+[2024-12-04 21:15:18,537] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:15:18,537] ERROR: Error handling client ('192.168.7.1', 58204): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 11580 and this is thread id 12596.
+[2024-12-04 21:15:23,137] INFO: Connected to ('192.168.7.1', 58220)
+[2024-12-04 21:15:23,536] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:15:23,536] ERROR: Error handling client ('192.168.7.1', 58220): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 11580 and this is thread id 11180.
+[2024-12-04 21:15:28,141] INFO: Connected to ('192.168.7.1', 58228)
+[2024-12-04 21:15:28,530] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:15:28,530] ERROR: Error handling client ('192.168.7.1', 58228): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 11580 and this is thread id 12300.
+[2024-12-04 21:15:33,138] INFO: Connected to ('192.168.7.1', 58236)
+[2024-12-04 21:15:33,536] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:15:33,536] ERROR: Error handling client ('192.168.7.1', 58236): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 11580 and this is thread id 4908.
+[2024-12-04 21:15:38,144] INFO: Connected to ('192.168.7.1', 58249)
+[2024-12-04 21:15:38,560] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:15:38,560] ERROR: Error handling client ('192.168.7.1', 58249): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 11580 and this is thread id 4420.
+[2024-12-04 21:15:39,805] INFO: Shutting down server...
+[2024-12-04 21:15:39,805] ERROR: Server encountered an error: [WinError 10038] An operation was attempted on something that is not a socket
+[2024-12-04 21:15:39,805] INFO: Shutting down server...
+[2024-12-04 21:15:42,701] INFO: Shutting down server...
+[2024-12-04 21:17:36,873] INFO: ViGEmBus driver is installed and operational.
+[2024-12-04 21:17:36,914] INFO: Server listening on 0.0.0.0:9999
+[2024-12-04 21:17:38,144] INFO: Connected to ('192.168.7.1', 58426)
+[2024-12-04 21:17:38,551] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:17:38,551] ERROR: Error handling client ('192.168.7.1', 58426): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 68.
+[2024-12-04 21:17:43,159] INFO: Connected to ('192.168.7.1', 58431)
+[2024-12-04 21:17:43,561] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:17:43,561] ERROR: Error handling client ('192.168.7.1', 58431): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10040.
+[2024-12-04 21:17:48,157] INFO: Connected to ('192.168.7.1', 58436)
+[2024-12-04 21:17:48,555] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:17:48,555] ERROR: Error handling client ('192.168.7.1', 58436): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6760.
+[2024-12-04 21:17:53,160] INFO: Connected to ('192.168.7.1', 58441)
+[2024-12-04 21:17:53,553] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:17:53,553] ERROR: Error handling client ('192.168.7.1', 58441): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11124.
+[2024-12-04 21:17:58,167] INFO: Connected to ('192.168.7.1', 58448)
+[2024-12-04 21:17:58,560] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:17:58,560] ERROR: Error handling client ('192.168.7.1', 58448): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12948.
+[2024-12-04 21:18:03,157] INFO: Connected to ('192.168.7.1', 58453)
+[2024-12-04 21:18:03,563] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:03,571] ERROR: Error handling client ('192.168.7.1', 58453): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12648.
+[2024-12-04 21:18:08,162] INFO: Connected to ('192.168.7.1', 58457)
+[2024-12-04 21:18:08,564] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:08,564] ERROR: Error handling client ('192.168.7.1', 58457): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9736.
+[2024-12-04 21:18:13,159] INFO: Connected to ('192.168.7.1', 58466)
+[2024-12-04 21:18:13,558] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:13,558] ERROR: Error handling client ('192.168.7.1', 58466): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7848.
+[2024-12-04 21:18:18,148] INFO: Connected to ('192.168.7.1', 58470)
+[2024-12-04 21:18:18,559] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:18,565] ERROR: Error handling client ('192.168.7.1', 58470): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 2640.
+[2024-12-04 21:18:23,147] INFO: Connected to ('192.168.7.1', 58475)
+[2024-12-04 21:18:23,563] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:23,563] ERROR: Error handling client ('192.168.7.1', 58475): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7676.
+[2024-12-04 21:18:28,155] INFO: Connected to ('192.168.7.1', 58481)
+[2024-12-04 21:18:28,533] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:28,533] ERROR: Error handling client ('192.168.7.1', 58481): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 5448.
+[2024-12-04 21:18:33,162] INFO: Connected to ('192.168.7.1', 58491)
+[2024-12-04 21:18:33,551] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:33,565] ERROR: Error handling client ('192.168.7.1', 58491): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9768.
+[2024-12-04 21:18:38,161] INFO: Connected to ('192.168.7.1', 58496)
+[2024-12-04 21:18:38,558] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:38,558] ERROR: Error handling client ('192.168.7.1', 58496): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 1504.
+[2024-12-04 21:18:43,166] INFO: Connected to ('192.168.7.1', 58504)
+[2024-12-04 21:18:43,562] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:43,562] ERROR: Error handling client ('192.168.7.1', 58504): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7364.
+[2024-12-04 21:18:48,156] INFO: Connected to ('192.168.7.1', 58510)
+[2024-12-04 21:18:48,559] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:48,559] ERROR: Error handling client ('192.168.7.1', 58510): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 1592.
+[2024-12-04 21:18:53,159] INFO: Connected to ('192.168.7.1', 58516)
+[2024-12-04 21:18:53,557] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:53,557] ERROR: Error handling client ('192.168.7.1', 58516): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11208.
+[2024-12-04 21:18:58,164] INFO: Connected to ('192.168.7.1', 58520)
+[2024-12-04 21:18:58,559] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:18:58,559] ERROR: Error handling client ('192.168.7.1', 58520): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11544.
+[2024-12-04 21:19:03,157] INFO: Connected to ('192.168.7.1', 58525)
+[2024-12-04 21:19:03,566] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:03,566] ERROR: Error handling client ('192.168.7.1', 58525): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 8576.
+[2024-12-04 21:19:08,154] INFO: Connected to ('192.168.7.1', 58531)
+[2024-12-04 21:19:08,563] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:08,563] ERROR: Error handling client ('192.168.7.1', 58531): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12016.
+[2024-12-04 21:19:13,149] INFO: Connected to ('192.168.7.1', 58538)
+[2024-12-04 21:19:13,571] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:13,571] ERROR: Error handling client ('192.168.7.1', 58538): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7712.
+[2024-12-04 21:19:18,163] INFO: Connected to ('192.168.7.1', 58543)
+[2024-12-04 21:19:18,550] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:18,565] ERROR: Error handling client ('192.168.7.1', 58543): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6728.
+[2024-12-04 21:19:23,157] INFO: Connected to ('192.168.7.1', 58547)
+[2024-12-04 21:19:23,554] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:23,554] ERROR: Error handling client ('192.168.7.1', 58547): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 1256.
+[2024-12-04 21:19:28,168] INFO: Connected to ('192.168.7.1', 58552)
+[2024-12-04 21:19:28,549] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:28,549] ERROR: Error handling client ('192.168.7.1', 58552): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12776.
+[2024-12-04 21:19:33,159] INFO: Connected to ('192.168.7.1', 58556)
+[2024-12-04 21:19:33,575] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:33,575] ERROR: Error handling client ('192.168.7.1', 58556): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11972.
+[2024-12-04 21:19:38,171] INFO: Connected to ('192.168.7.1', 58561)
+[2024-12-04 21:19:38,563] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:38,563] ERROR: Error handling client ('192.168.7.1', 58561): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 3400.
+[2024-12-04 21:19:43,152] INFO: Connected to ('192.168.7.1', 58571)
+[2024-12-04 21:19:43,563] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:43,563] ERROR: Error handling client ('192.168.7.1', 58571): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9344.
+[2024-12-04 21:19:48,162] INFO: Connected to ('192.168.7.1', 58576)
+[2024-12-04 21:19:48,554] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:48,554] ERROR: Error handling client ('192.168.7.1', 58576): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7500.
+[2024-12-04 21:19:53,154] INFO: Connected to ('192.168.7.1', 58581)
+[2024-12-04 21:19:53,548] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:53,549] ERROR: Error handling client ('192.168.7.1', 58581): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10844.
+[2024-12-04 21:19:58,164] INFO: Connected to ('192.168.7.1', 58587)
+[2024-12-04 21:19:58,564] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:19:58,564] ERROR: Error handling client ('192.168.7.1', 58587): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 5588.
+[2024-12-04 21:20:03,167] INFO: Connected to ('192.168.7.1', 58591)
+[2024-12-04 21:20:03,560] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:03,560] ERROR: Error handling client ('192.168.7.1', 58591): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9744.
+[2024-12-04 21:20:08,154] INFO: Connected to ('192.168.7.1', 58597)
+[2024-12-04 21:20:08,539] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:08,539] ERROR: Error handling client ('192.168.7.1', 58597): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9008.
+[2024-12-04 21:20:13,167] INFO: Connected to ('192.168.7.1', 58607)
+[2024-12-04 21:20:13,556] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:13,556] ERROR: Error handling client ('192.168.7.1', 58607): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10888.
+[2024-12-04 21:20:18,169] INFO: Connected to ('192.168.7.1', 58611)
+[2024-12-04 21:20:18,566] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:18,566] ERROR: Error handling client ('192.168.7.1', 58611): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6652.
+[2024-12-04 21:20:23,157] INFO: Connected to ('192.168.7.1', 58616)
+[2024-12-04 21:20:23,556] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:23,568] ERROR: Error handling client ('192.168.7.1', 58616): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 4484.
+[2024-12-04 21:20:28,161] INFO: Connected to ('192.168.7.1', 58621)
+[2024-12-04 21:20:28,562] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:28,562] ERROR: Error handling client ('192.168.7.1', 58621): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 1108.
+[2024-12-04 21:20:33,159] INFO: Connected to ('192.168.7.1', 58626)
+[2024-12-04 21:20:33,571] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:33,571] ERROR: Error handling client ('192.168.7.1', 58626): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6988.
+[2024-12-04 21:20:38,167] INFO: Connected to ('192.168.7.1', 58630)
+[2024-12-04 21:20:38,572] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:38,572] ERROR: Error handling client ('192.168.7.1', 58630): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11668.
+[2024-12-04 21:20:43,168] INFO: Connected to ('192.168.7.1', 58635)
+[2024-12-04 21:20:43,565] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:43,565] ERROR: Error handling client ('192.168.7.1', 58635): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12044.
+[2024-12-04 21:20:49,115] INFO: Connected to ('192.168.7.1', 58646)
+[2024-12-04 21:20:49,515] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:49,515] ERROR: Error handling client ('192.168.7.1', 58646): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12040.
+[2024-12-04 21:20:54,118] INFO: Connected to ('192.168.7.1', 58654)
+[2024-12-04 21:20:54,529] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:54,531] ERROR: Error handling client ('192.168.7.1', 58654): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10924.
+[2024-12-04 21:20:59,109] INFO: Connected to ('192.168.7.1', 58658)
+[2024-12-04 21:20:59,500] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:20:59,500] ERROR: Error handling client ('192.168.7.1', 58658): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9696.
+[2024-12-04 21:21:04,129] INFO: Connected to ('192.168.7.1', 58663)
+[2024-12-04 21:21:04,520] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:04,520] ERROR: Error handling client ('192.168.7.1', 58663): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10680.
+[2024-12-04 21:21:09,099] INFO: Connected to ('192.168.7.1', 58667)
+[2024-12-04 21:21:09,493] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:09,493] ERROR: Error handling client ('192.168.7.1', 58667): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11548.
+[2024-12-04 21:21:14,129] INFO: Connected to ('192.168.7.1', 58675)
+[2024-12-04 21:21:14,511] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:14,511] ERROR: Error handling client ('192.168.7.1', 58675): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10312.
+[2024-12-04 21:21:19,129] INFO: Connected to ('192.168.7.1', 58679)
+[2024-12-04 21:21:19,515] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:19,515] ERROR: Error handling client ('192.168.7.1', 58679): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11672.
+[2024-12-04 21:21:24,133] INFO: Connected to ('192.168.7.1', 58685)
+[2024-12-04 21:21:24,520] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:24,520] ERROR: Error handling client ('192.168.7.1', 58685): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11580.
+[2024-12-04 21:21:29,121] INFO: Connected to ('192.168.7.1', 58691)
+[2024-12-04 21:21:29,508] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:29,508] ERROR: Error handling client ('192.168.7.1', 58691): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7908.
+[2024-12-04 21:21:34,121] INFO: Connected to ('192.168.7.1', 58699)
+[2024-12-04 21:21:34,519] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:34,519] ERROR: Error handling client ('192.168.7.1', 58699): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 3000.
+[2024-12-04 21:21:39,122] INFO: Connected to ('192.168.7.1', 58703)
+[2024-12-04 21:21:39,511] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:39,513] ERROR: Error handling client ('192.168.7.1', 58703): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9624.
+[2024-12-04 21:21:44,121] INFO: Connected to ('192.168.7.1', 58709)
+[2024-12-04 21:21:44,522] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:21:44,527] ERROR: Error handling client ('192.168.7.1', 58709): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6816.
+[2024-12-04 21:22:12,096] INFO: Connected to ('192.168.7.1', 58727)
+[2024-12-04 21:22:12,470] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:22:12,470] ERROR: Error handling client ('192.168.7.1', 58727): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 13012.
+[2024-12-04 21:23:12,119] INFO: Connected to ('192.168.7.1', 58793)
+[2024-12-04 21:23:12,506] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:12,506] ERROR: Error handling client ('192.168.7.1', 58793): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6904.
+[2024-12-04 21:23:23,760] INFO: Connected to ('192.168.7.1', 58802)
+[2024-12-04 21:23:24,156] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:24,170] ERROR: Error handling client ('192.168.7.1', 58802): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 3680.
+[2024-12-04 21:23:29,123] INFO: Connected to ('192.168.7.1', 58808)
+[2024-12-04 21:23:29,514] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:29,514] ERROR: Error handling client ('192.168.7.1', 58808): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 3592.
+[2024-12-04 21:23:34,120] INFO: Connected to ('192.168.7.1', 58813)
+[2024-12-04 21:23:34,521] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:34,521] ERROR: Error handling client ('192.168.7.1', 58813): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 4152.
+[2024-12-04 21:23:39,126] INFO: Connected to ('192.168.7.1', 58817)
+[2024-12-04 21:23:39,517] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:39,517] ERROR: Error handling client ('192.168.7.1', 58817): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9872.
+[2024-12-04 21:23:44,132] INFO: Connected to ('192.168.7.1', 58822)
+[2024-12-04 21:23:44,537] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:44,537] ERROR: Error handling client ('192.168.7.1', 58822): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6320.
+[2024-12-04 21:23:49,107] INFO: Connected to ('192.168.7.1', 58826)
+[2024-12-04 21:23:49,508] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:49,508] ERROR: Error handling client ('192.168.7.1', 58826): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 7772.
+[2024-12-04 21:23:54,145] INFO: Connected to ('192.168.7.1', 58832)
+[2024-12-04 21:23:54,538] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:54,538] ERROR: Error handling client ('192.168.7.1', 58832): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 6652.
+[2024-12-04 21:23:59,115] INFO: Connected to ('192.168.7.1', 58838)
+[2024-12-04 21:23:59,517] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:23:59,517] ERROR: Error handling client ('192.168.7.1', 58838): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 1272.
+[2024-12-04 21:24:04,128] INFO: Connected to ('192.168.7.1', 58843)
+[2024-12-04 21:24:04,515] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:24:04,516] ERROR: Error handling client ('192.168.7.1', 58843): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 9784.
+[2024-12-04 21:24:09,126] INFO: Connected to ('192.168.7.1', 58847)
+[2024-12-04 21:24:09,521] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:24:09,522] ERROR: Error handling client ('192.168.7.1', 58847): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 10428.
+[2024-12-04 21:24:14,117] INFO: Connected to ('192.168.7.1', 58856)
+[2024-12-04 21:24:14,509] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:24:14,509] ERROR: Error handling client ('192.168.7.1', 58856): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12772.
+[2024-12-04 21:24:19,134] INFO: Connected to ('192.168.7.1', 58861)
+[2024-12-04 21:24:19,540] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:24:19,543] ERROR: Error handling client ('192.168.7.1', 58861): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 12584.
+[2024-12-04 21:24:24,123] INFO: Connected to ('192.168.7.1', 58865)
+[2024-12-04 21:24:24,529] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:24:24,529] ERROR: Error handling client ('192.168.7.1', 58865): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 5196.
+[2024-12-04 21:25:12,125] INFO: Connected to ('192.168.7.1', 58893)
+[2024-12-04 21:25:12,518] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:25:12,518] ERROR: Error handling client ('192.168.7.1', 58893): SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12156 and this is thread id 11852.
+[2024-12-04 21:25:26,412] INFO: ViGEmBus driver is installed and operational.
+[2024-12-04 21:25:26,432] INFO: Server listening on 0.0.0.0:9999
+[2024-12-04 21:25:54,501] INFO: Connected to ('192.168.7.1', 58920)
+[2024-12-04 21:25:54,900] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:25:54,912] WARNING: Unauthorized HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:25:58,174] INFO: Connected to ('192.168.7.1', 58924)
+[2024-12-04 21:25:58,563] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:25:58,563] WARNING: Unauthorized HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:03,151] INFO: Connected to ('192.168.7.1', 58929)
+[2024-12-04 21:26:03,549] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:03,549] WARNING: Unauthorized HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:08,178] INFO: Connected to ('192.168.7.1', 58934)
+[2024-12-04 21:26:08,575] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:08,575] WARNING: Unauthorized HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:13,175] INFO: Connected to ('192.168.7.1', 58941)
+[2024-12-04 21:26:13,578] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:13,580] WARNING: Unauthorized HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:18,179] INFO: Connected to ('192.168.7.1', 58946)
+[2024-12-04 21:26:18,571] INFO: Received HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032
+[2024-12-04 21:26:18,571] WARNING: Unauthorized HWID: 0a0d361a7846e1f3b85e6db950670cd686d1bd8b98acbbf43cf4d4f65084f032

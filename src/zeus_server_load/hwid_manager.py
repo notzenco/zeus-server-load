@@ -6,7 +6,7 @@ class HWIDManager:
 
     def __init__(self, db_path="hwids.db"):
         self.db_path = db_path
-        self.conn = sqlite3.connect(self.db_path)
+        self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self.create_hwid_table()
 
     def create_hwid_table(self):
