@@ -13,6 +13,7 @@ class CommandServer:
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.is_running = True
+        self._anti_afk_thread = None
         self.gamepad_controller = GamepadController()
 
     def handle_client(self, conn, addr):
@@ -76,15 +77,38 @@ class CommandServer:
 
     def start_anti_afk(self):
         """Start the anti-AFK loop."""
+        if self.gamepad_controller.anti_afk_enabled:
+            logging.info("Anti-AFK is already running.")
+            return
+
         self.gamepad_controller.anti_afk_enabled = True
-        if not hasattr(self, "_anti_afk_thread") or not self._anti_afk_thread.is_alive():
+
+        if self._anti_afk_thread is not None and self._anti_afk_thread.is_alive():
+            logging.info("Anti-AFK thread is already running.")
+        else:
             self._anti_afk_thread = threading.Thread(target=self.gamepad_controller.anti_afk_loop, daemon=True)
             self._anti_afk_thread.start()
+            logging.info("Anti-AFK thread started.")
+
         logging.info("Anti-AFK started.")
 
     def stop_anti_afk(self):
         """Stop the anti-AFK loop."""
+        if not self.gamepad_controller.anti_afk_enabled:
+            logging.info("Anti-AFK is not running.")
+            return
+
         self.gamepad_controller.anti_afk_enabled = False
+
+        if hasattr(self, '_anti_afk_thread'):
+            self._anti_afk_thread.join(timeout=10)  # Wait up to 10 seconds
+            if self._anti_afk_thread.is_alive():
+                logging.warning("Anti-AFK thread did not terminate within timeout.")
+            else:
+                logging.info("Anti-AFK thread stopped.")
+        else:
+            logging.warning("Anti-AFK thread was not found.")
+
         logging.info("Anti-AFK stopped.")
 
     def start_movement(self):
@@ -119,5 +143,16 @@ class CommandServer:
     def shutdown(self):
         """Shutdown the server gracefully."""
         logging.info("Shutting down server...")
+        self.gamepad_controller.running = False
+
+
+        # Stop Anti-AFK if running
+        if self.gamepad_controller.anti_afk_enabled:
+            self.stop_anti_afk()
+
+        # Stop Movement Loop if running
+        if self.gamepad_controller.movement_enabled:
+            self.stop_movement()
+
         self.is_running = False
         self.server_socket.close()

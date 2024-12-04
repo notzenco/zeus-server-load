@@ -80,19 +80,24 @@ class GamepadController:
     def anti_afk_loop(self):
         """Anti-AFK loop that periodically presses buttons."""
         logging.info("Anti-AFK loop started")
-        while self.running:
-            if not self.anti_afk_enabled:
-                time.sleep(0.1)
-                continue
+        try:
+            while self.anti_afk_enabled:
+                with self.lock:
+                    self.press_rb()
+                    time.sleep(self.delay_between_buttons)
+                    self.press_lb()
 
-            with self.lock:
-                self.press_rb()
-                time.sleep(self.delay_between_buttons)
-                self.press_lb()
-
-            logging.info(f"Anti-AFK: Waiting {self.anti_afk_interval} seconds")
-            time.sleep(self.anti_afk_interval)
-        logging.info("Anti-AFK loop ended")
+                logging.info(f"Anti-AFK: Waiting {self.anti_afk_interval} seconds")
+                # Sleep in small increments to allow prompt exit
+                sleep_time = 0
+                sleep_interval = 0.5  # Adjust as needed
+                while sleep_time < self.anti_afk_interval and self.anti_afk_enabled:
+                    time.sleep(sleep_interval)
+                    sleep_time += sleep_interval
+        except Exception as e:
+            logging.error(f"Exception in anti_afk_loop: {e}")
+        finally:
+            logging.info("Anti-AFK loop ended")
 
     def movement_loop(self):
         """Movement loop that simulates random controller inputs."""
