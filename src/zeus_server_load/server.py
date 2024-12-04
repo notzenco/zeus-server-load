@@ -14,6 +14,7 @@ class CommandServer:
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.is_running = True
         self._anti_afk_thread = None
+        self._movement_thread = None
         self.gamepad_controller = GamepadController()
 
     def handle_client(self, conn, addr):
@@ -113,15 +114,38 @@ class CommandServer:
 
     def start_movement(self):
         """Start the movement loop."""
+        if self.gamepad_controller.movement_enabled:
+            logging.info("Movement is already running.")
+            return
+
         self.gamepad_controller.movement_enabled = True
-        if not hasattr(self, "_movement_thread") or not self._movement_thread.is_alive():
+
+        if self._movement_thread is not None and self._movement_thread.is_alive():
+            logging.info("Movement thread is already running.")
+        else:
             self._movement_thread = threading.Thread(target=self.gamepad_controller.movement_loop, daemon=True)
             self._movement_thread.start()
+            logging.info("Movement thread started.")
+
         logging.info("Movement started.")
 
     def stop_movement(self):
         """Stop the movement loop."""
+        if not self.gamepad_controller.movement_enabled:
+            logging.info("Movement is not running.")
+            return
+
         self.gamepad_controller.movement_enabled = False
+
+        if self._movement_thread is not None:
+            self._movement_thread.join(timeout=10)  # Wait up to 10 seconds
+            if self._movement_thread.is_alive():
+                logging.warning("Movement thread did not terminate within timeout.")
+            else:
+                logging.info("Movement thread stopped.")
+        else:
+            logging.warning("Movement thread was not found.")
+
         logging.info("Movement stopped.")
 
     def start(self):

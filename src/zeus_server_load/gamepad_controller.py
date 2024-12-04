@@ -102,26 +102,35 @@ class GamepadController:
     def movement_loop(self):
         """Movement loop that simulates random controller inputs."""
         logging.info("Movement loop started")
-        while self.running:
-            if not self.movement_enabled:
-                time.sleep(0.1)
-                continue
+        try:
+            while self.movement_enabled:
+                logging.info("Simulating movement...")
+                duration = random.uniform(self.min_movement_duration, self.max_movement_duration)
+                start_time = time.time()
 
-            logging.info("Simulating movement...")
-            duration = random.uniform(self.min_movement_duration, self.max_movement_duration)
-            start_time = time.time()
+                while self.movement_enabled and (time.time() - start_time) < duration:
+                    move_x = random.uniform(-1, 1)
+                    move_y = random.uniform(-1, 1)
+                    with self.lock:
+                        self.gamepad.left_joystick_float(x_value_float=move_x, y_value_float=move_y)
+                        self.gamepad.update()
+                    time.sleep(0.1)
 
-            while self.running and self.movement_enabled and (time.time() - start_time) < duration:
-                move_x = random.uniform(-1, 1)
-                move_y = random.uniform(-1, 1)
-                with self.lock:
-                    self.gamepad.left_joystick_float(x_value_float=move_x, y_value_float=move_y)
-                    self.gamepad.update()
-                time.sleep(0.1)
+                if not self.movement_enabled:
+                    break
 
-            logging.info(f"Movement phase complete. Breaking for {duration} seconds.")
-            time.sleep(random.uniform(self.min_break_duration, self.max_break_duration))
-        logging.info("Movement loop ended")
+                logging.info(f"Movement phase complete. Breaking for {duration} seconds.")
+                # Sleep in small increments during break
+                break_duration = random.uniform(self.min_break_duration, self.max_break_duration)
+                sleep_time = 0
+                sleep_interval = 0.5  # Adjust as needed
+                while sleep_time < break_duration and self.movement_enabled:
+                    time.sleep(sleep_interval)
+                    sleep_time += sleep_interval
+        except Exception as e:
+            logging.error(f"Exception in movement_loop: {e}")
+        finally:
+            logging.info("Movement loop ended")
 
     # Individual Button and Control Methods
     def press_a(self):
