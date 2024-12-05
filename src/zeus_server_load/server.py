@@ -2,17 +2,20 @@ import socket
 import threading
 import logging
 from zeus_server_load.gamepad_controller import GamepadController
+from chrome_manager import ChromeManager
 
 
 class CommandServer:
     """A server that handles client commands and enforces HWID checks."""
 
-    def __init__(self, hwid_manager, host="0.0.0.0", port=9999):
+    def __init__(self, hwid_manager, config_manager, host="0.0.0.0", port=9999):
         self.hwid_manager = hwid_manager
         self.host = host
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.is_running = True
+        self.config_manager = config_manager
+        self.chrome_manager = ChromeManager(config_manager)  # Instantiate ChromeManager
         self._anti_afk_thread = None
         self._movement_thread = None
         self.gamepad_controller = GamepadController()
@@ -54,6 +57,9 @@ class CommandServer:
                     elif data == "stop_anti_afk":
                         self.stop_anti_afk()
                         conn.sendall("Anti-AFK stopped.".encode())
+                    elif data == "open_all_chrome_profiles":
+                        self.chrome_manager.open_all_chrome_profiles()
+                        conn.sendall("Opened all Chrome profiles.".encode())
                     elif data == "start_movement":
                         self.start_movement()
                         conn.sendall("Movement started.".encode())

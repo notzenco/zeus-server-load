@@ -4,6 +4,8 @@ import sys
 from zeus_server_load.hwid_manager import HWIDManager
 from zeus_server_load.config_manager import ConfigManager
 from zeus_server_load.utils import setup_logging, check_vigem_bus_driver, display_menu
+from zeus_server_load.chrome_manager import ChromeManager
+
 
 
 def main():
@@ -23,10 +25,12 @@ def main():
     # Initialize HWID Manager
     hwid_manager = HWIDManager()
     config_manager = ConfigManager()
+    chrome_manager = ChromeManager(config_manager)
+
 
 
     # Start the server in a separate thread
-    server = CommandServer(hwid_manager)
+    server = CommandServer(hwid_manager = hwid_manager, chrome_manager = chrome_manager)
     server_thread = threading.Thread(target=server.start, daemon=True)
     server_thread.start()
 
