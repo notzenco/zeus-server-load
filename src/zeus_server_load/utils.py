@@ -73,7 +73,7 @@ def get_public_ip():
     return None
 
 
-def display_menu(server, config_manager):
+def display_menu(server, config_manager, chrome_manager):
     """Display the menu-driven interface."""
     init(autoreset=True)
     while True:
@@ -151,8 +151,12 @@ def display_menu(server, config_manager):
         elif choice == '3':
             set_chrome_shortcuts_path(config_manager)
         elif choice == '4':
-            tail_logs()
+            chrome_manager.open_all_chrome_profiles()
+            print("All Chrome profiles have been opened.")
+            input("Press Enter to continue...")
         elif choice == '5':
+            tail_logs()
+        elif choice == '6':
             print("Exiting...")
             server.shutdown()
             break
@@ -393,7 +397,7 @@ def check_vigem_bus_driver():
         return True
     except Exception as e:
         logging.error(f"An unexpected error occurred while checking ViGEmBus driver: {e}")
-        user_input = input("Would you like to download and install it now? (y/n): ")
+        user_input = input("Would you like to download and install ViGEmBus now? (y/n): ")
         if user_input.lower() == 'y':
             download_and_install_vigem_bus()
         else:

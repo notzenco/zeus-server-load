@@ -30,12 +30,12 @@ def main():
 
 
     # Start the server in a separate thread
-    server = CommandServer(hwid_manager = hwid_manager, chrome_manager = chrome_manager)
+    server = CommandServer(hwid_manager = hwid_manager, config_manager = config_manager)
     server_thread = threading.Thread(target=server.start, daemon=True)
     server_thread.start()
 
     # Run the menu interface in the main thread
-    display_menu(server, config_manager)
+    display_menu(server, config_manager, chrome_manager)
 
 
 def signal_handler(sig, frame):
