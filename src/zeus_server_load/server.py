@@ -2,7 +2,7 @@ import socket
 import threading
 import logging
 from zeus_server_load.gamepad_controller import GamepadController
-from chrome_manager import ChromeManager
+from zeus_server_load.chrome_manager import ChromeManager
 
 
 class CommandServer:

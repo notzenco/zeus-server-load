@@ -102,8 +102,9 @@ def display_menu(server, config_manager, chrome_manager):
         print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}3. Set Chrome Shortcuts Path{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}4. Tail Logs{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}5. Exit{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}4. Open All Chrome Profiles{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}5. Tail Logs{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}6. Exit{Style.RESET_ALL}")
         choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
 
         if choice == '1':
@@ -118,8 +119,12 @@ def display_menu(server, config_manager, chrome_manager):
         elif choice == '3':
             set_chrome_shortcuts_path(config_manager)
         elif choice == '4':
-            tail_logs()
+            chrome_manager.open_all_chrome_profiles()
+            print("All Chrome profiles have been opened.")
+            input("Press Enter to continue...")
         elif choice == '5':
+            tail_logs()
+        elif choice == '6':
             print("Exiting...")
             server.shutdown()
             break
@@ -396,6 +401,7 @@ def check_vigem_bus_driver():
         logging.info("ViGEmBus driver is installed and operational.")
         return True
     except Exception as e:
+        print(f"An unexpected error occurred while checking ViGEmBus driver: {e}")
         logging.error(f"An unexpected error occurred while checking ViGEmBus driver: {e}")
         user_input = input("Would you like to download and install ViGEmBus now? (y/n): ")
         if user_input.lower() == 'y':
