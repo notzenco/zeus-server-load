@@ -13,10 +13,12 @@ class ChromeManager:
         """Open all Chrome profiles using shortcuts in the specified directory."""
         shortcuts_path = self.config_manager.get_config('chrome_shortcuts_path')
         if not shortcuts_path:
+            print("Chrome shortcuts path is not set. Cannot open profiles.")
             logging.warning("Chrome shortcuts path is not set. Cannot open profiles.")
             return
 
         if not os.path.isdir(shortcuts_path):
+            print(f"The path '{shortcuts_path}' does not exist or is not a directory")
             logging.warning(f"The path '{shortcuts_path}' does not exist or is not a directory.")
             return
 
@@ -26,6 +28,7 @@ class ChromeManager:
             logging.warning(f"No shortcut files (.lnk) found in '{shortcuts_path}'.")
             return
 
+        print(f"Found {len(shortcuts)} Chrome profile shortcuts. Opening all profiles...")
         logging.info(f"Found {len(shortcuts)} Chrome profile shortcuts. Opening all profiles...")
 
         for shortcut in shortcuts:
@@ -40,6 +43,8 @@ class ChromeManager:
                 ]
 
                 subprocess.Popen(cmd, shell=False)
+                print(f"Opened Chrome profile using shortcut '{shortcut}'.")
                 logging.info(f"Opened Chrome profile using shortcut '{shortcut}'.")
             except Exception as e:
+                print(f"Failed to open shortcut '{shortcut}': {e}")
                 logging.error(f"Failed to open shortcut '{shortcut}': {e}")
