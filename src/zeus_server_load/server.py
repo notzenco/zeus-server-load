@@ -61,9 +61,6 @@ class CommandServer:
                         script_url = "https://github.com/redphx/better-xcloud/releases/latest/download/better-xcloud.user.js"
                         self.chrome_manager.install_tampermonkey_script_in_all_profiles(script_url)
                         conn.sendall("Opened script URL in all Chrome profiles. Please install manually.".encode())
-                    elif data == "open_developer_options":
-                        self.chrome_manager.open_developer_options_in_all_profiles()
-                        conn.sendall("Opened developer options in all Chrome profiles. Please enable developer mode manually.".encode())
                     elif data == "install_tampermonkey":
                         extension_url = "https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo"
                         self.chrome_manager.install_extension_on_all_profiles(extension_url)
