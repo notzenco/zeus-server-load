@@ -88,49 +88,17 @@ def display_menu(server, config_manager, chrome_manager):
         local_ip = get_local_ip()
 
         # Display the header and IP addresses
-        print(f"{Fore.CYAN}[Zeus Server Script CoDBo6]{Style.RESET_ALL}")
-        if public_ip:
-            print(f"The lobby manager can connect to this with Public IP: {Fore.GREEN}{public_ip}{Style.RESET_ALL}")
-        else:
-            print(f"{Fore.RED}Unable to retrieve public IP address.{Style.RESET_ALL}")
-            print("Please ensure the server has internet access.")
-
-        print(f"The lobby manager can connect to this with Local IP: {Fore.YELLOW}{local_ip}{Style.RESET_ALL}")
+        print_header(public_ip, local_ip)
 
         # Display the menu options
-        print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}3. Set Chrome Shortcuts Path{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}4. Open All Chrome Profiles{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}5. Tail Logs{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}6. Exit{Style.RESET_ALL}")
+        print_options()
         choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
-
-        if choice == '1':
-            hwid = input("Enter HWID to add: ")
-            if server.hwid_manager.add_hwid(hwid):
-                print(f"{Fore.GREEN}HWID '{hwid}' added successfully.{Style.RESET_ALL}")
-            else:
-                print(f"{Fore.RED}HWID '{hwid}' is already in the whitelist.{Style.RESET_ALL}")
-            input("Press Enter to continue...")
-        elif choice == '2':
-            delete_hwid(server.hwid_manager)
-        elif choice == '3':
-            set_chrome_shortcuts_path(config_manager)
-        elif choice == '4':
-            chrome_manager.open_all_chrome_profiles()
-            print("All Chrome profiles have been opened.")
-            input("Press Enter to continue...")
-        elif choice == '5':
-            tail_logs()
-        elif choice == '6':
+        if choice == '9':
             print("Exiting...")
             server.shutdown()
             break
-        else:
-            print("Invalid choice. Please try again.")
-            input("Press Enter to continue...")
+        perform_action(server, config_manager, chrome_manager, choice)
+        
     """Display the menu-driven interface."""
     init(autoreset=True)
     while True:
@@ -138,36 +106,67 @@ def display_menu(server, config_manager, chrome_manager):
            os.system('cls')
         else:
             os.system('clear')
-        print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}3. Set Chrome Shortcuts Path{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}4. Tail Logs{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}5. Exit{Style.RESET_ALL}")
+        print_options()
         choice = input(f"{Fore.GREEN}Enter your choice: {Style.RESET_ALL}")
-        if choice == '1':
-            hwid = input("Enter HWID to add: ")
-            if server.hwid_manager.add_hwid(hwid):
-                print(f"{Fore.GREEN}HWID '{hwid}' added successfully.{Style.RESET_ALL}")
-            else:
-                print(f"{Fore.RED}HWID '{hwid}' is already in the whitelist.{Style.RESET_ALL}")
-        elif choice == '2':
-            delete_hwid(server.hwid_manager)
-        elif choice == '3':
-            set_chrome_shortcuts_path(config_manager)
-        elif choice == '4':
-            chrome_manager.open_all_chrome_profiles()
-            print("All Chrome profiles have been opened.")
-            input("Press Enter to continue...")
-        elif choice == '5':
-            tail_logs()
-        elif choice == '6':
+        if choice == '9':
             print("Exiting...")
             server.shutdown()
             break
-        else:
-            print("Invalid choice. Please try again.")
+        perform_action(server, config_manager, chrome_manager, choice)
 
+def print_options():
+    """Print the menu options."""
+    print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}1. Add HWID{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}2. Delete HWID{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}3. Set Chrome Shortcuts Path{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}4. Open all chrome profiles{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}5. Install Tampermonkey extension: profiles{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}6. Install Better xCloud script for Tampermoney{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}7. Tail Logs{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}9. Exit{Style.RESET_ALL}")
+
+
+def print_header(public_ip, local_ip):
+    """Print the header with IP addresses."""
+    print(f"{Fore.CYAN}[Zeus Server Script CoDBo6]{Style.RESET_ALL}")
+    if public_ip:
+        print(f"The lobby manager can connect to this with Public IP: {Fore.GREEN}{public_ip}{Style.RESET_ALL}")
+    else:
+        print(f"{Fore.RED}Unable to retrieve public IP address.{Style.RESET_ALL}")
+        print("Please ensure the server has internet access.")
+
+    print(f"The lobby manager can connect to this with Local IP: {Fore.YELLOW}{local_ip}{Style.RESET_ALL}")
+
+
+def perform_action(server, config_manager, chrome_manager, choice): 
+    if choice == '1':
+        hwid = input("Enter HWID to add: ")
+        if server.hwid_manager.add_hwid(hwid):
+            print(f"{Fore.GREEN}HWID '{hwid}' added successfully.{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.RED}HWID '{hwid}' is already in the whitelist.{Style.RESET_ALL}")
+    elif choice == '2':
+        delete_hwid(server.hwid_manager)
+    elif choice == '3':
+        set_chrome_shortcuts_path(config_manager)
+    elif choice == '4':
+        chrome_manager.open_all_chrome_profiles()
+        print("All Chrome profiles have been opened.")
+        input("Press Enter to continue...")
+    elif choice == '5':
+        extension_url = "https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo"
+        chrome_manager.install_extension_on_all_profiles(extension_url)
+        print("Opened extension page in all Chrome profiles. Please install manually.")
+    elif choice == '6':
+        script_url = "https://github.com/redphx/better-xcloud/releases/latest/download/better-xcloud.user.js"
+        chrome_manager.install_tampermonkey_script_in_all_profiles(script_url)
+        print("Opened script URL in all Chrome profiles. Please install via Tampermonkey.")
+        input("Press Enter to continue...")
+    elif choice == '7':
+        tail_logs()
+    else:
+        print("Invalid choice. Please try again.")
 
 def set_chrome_shortcuts_path(config_manager):
     """Set or update the Chrome shortcuts location or path."""
