@@ -114,6 +114,61 @@ def display_menu(server, config_manager, chrome_manager):
             break
         perform_action(server, config_manager, chrome_manager, choice)
 
+
+def tail_lines(file_path, num_lines=100, chunk_size=4096):
+    """
+    Return the last `num_lines` lines from the file at `file_path`.
+    Reads the file from the end in chunks to avoid loading it all into memory.
+    """
+    if not os.path.isfile(file_path):
+        logging.warning(f"File '{file_path}' does not exist.")
+        return ""
+
+    lines = []
+    end_char_found = 0  # Count of newline chars found
+    with open(file_path, 'rb') as f:
+        # Move to end of file
+        f.seek(0, os.SEEK_END)
+        file_size = f.tell()
+
+        if file_size == 0:
+            # Empty file
+            return ""
+
+        # Start reading from the end
+        offset = 0
+        chunk_data = b''
+
+        while end_char_found <= num_lines and offset < file_size:
+            # Move backward by chunk_size or till start of file
+            read_size = min(chunk_size, file_size - offset)
+            f.seek(file_size - offset - read_size)
+            chunk = f.read(read_size)
+
+            # Prepend the chunk_data (reading backwards)
+            chunk_data = chunk + chunk_data
+
+            end_char_found = chunk_data.count(b'\n')
+            offset += read_size
+
+            # If we've got more than needed lines or reached start of file
+            if end_char_found >= num_lines or offset >= file_size:
+                break
+
+        # Convert to string now
+        text = chunk_data.decode('utf-8', errors='replace')
+
+        # Split lines
+        all_lines = text.splitlines()
+
+        # If file has fewer lines than num_lines, just return them all
+        if len(all_lines) <= num_lines:
+            return '\n'.join(all_lines) + '\n'
+        else:
+            # Return only the last num_lines lines
+            return '\n'.join(all_lines[-num_lines:]) + '\n'
+
+
 def print_options():
     """Print the menu options."""
     print(f"{Fore.BLUE}Select an option:{Style.RESET_ALL}")

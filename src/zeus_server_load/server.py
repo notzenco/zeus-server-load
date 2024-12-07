@@ -3,6 +3,7 @@ import threading
 import logging
 from zeus_server_load.gamepad_controller import GamepadController
 from zeus_server_load.chrome_manager import ChromeManager
+from zeus_server_load.utils import tail_lines
 
 
 class CommandServer:
@@ -74,6 +75,17 @@ class CommandServer:
                     elif data == "stop_movement":
                         self.stop_movement()
                         conn.sendall("Movement stopped.".encode())
+                    elif data == "tail_logs":
+                        try:
+                            # Tail the last 100 lines of the log file
+                            last_logs = tail_lines('server.log', num_lines=100)
+                            if not last_logs:
+                                last_logs = "No logs found or log file empty.\n"
+                            conn.sendall(last_logs.encode('utf-8', errors='replace'))
+                        except Exception as e:
+                            logging.error(f"Failed to tail logs: {e}")
+                            error_msg = f"Error reading logs: {e}"
+                            conn.sendall(error_msg.encode('utf-8'))
                     else:
                         conn.sendall("unknown command".encode())
 
