@@ -1,5 +1,7 @@
 # Zeus Server App: for Cod Bo6 Bot Lobby Manager
 
+If you are looking for the Lobby Manager / Admin app: [Zeus Bot Lobby Manager Github](https://github.com/satyajiit/CodBo6_Bot_Manager_Zeus)
+
 ![Python Badge](https://img.shields.io/badge/Made_with-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Caffeine Badge](https://img.shields.io/badge/Generated_with-Caffeine-FFDD00?style=flat-square&logo=coffeescript&logoColor=black)
 ![Gamers Badge](https://img.shields.io/badge/Built_by-Gamers-00FF00?style=flat-square&logo=xbox&logoColor=white)
