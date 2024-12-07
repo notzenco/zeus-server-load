@@ -14,4 +14,4 @@ A server application for controlling gamepad inputs and managing HWIDs, designed
 Install via pip:
 
 ```bash
-pip install zeus-server-load
+pip install zeus_server_app

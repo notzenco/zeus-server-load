@@ -1,9 +1,9 @@
 import socket
 import threading
 import logging
-from zeus_server_load.gamepad_controller import GamepadController
-from zeus_server_load.chrome_manager import ChromeManager
-from zeus_server_load.utils import tail_lines
+from zeus_server_app.gamepad_controller import GamepadController
+from zeus_server_app.chrome_manager import ChromeManager
+from zeus_server_app.utils import tail_lines
 
 
 class CommandServer:

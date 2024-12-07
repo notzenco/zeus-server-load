@@ -447,7 +447,7 @@ def check_vigem_bus_driver():
 
     try:
         # Attempt to create a gamepad instance
-        from zeus_server_load.server import CommandServer
+        from zeus_server_app.server import CommandServer
         logging.info("ViGEmBus driver is installed and operational.")
         return True
     except Exception as e:

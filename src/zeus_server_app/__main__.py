@@ -1,10 +1,10 @@
 import threading
 import signal
 import sys
-from zeus_server_load.hwid_manager import HWIDManager
-from zeus_server_load.config_manager import ConfigManager
-from zeus_server_load.utils import setup_logging, check_vigem_bus_driver, display_menu
-from zeus_server_load.chrome_manager import ChromeManager
+from zeus_server_app.hwid_manager import HWIDManager
+from zeus_server_app.config_manager import ConfigManager
+from zeus_server_app.utils import setup_logging, check_vigem_bus_driver, display_menu
+from zeus_server_app.chrome_manager import ChromeManager
 
 
 
@@ -16,7 +16,7 @@ def main():
         # If the driver is not installed and the user chooses not to install it, the program will exit.
         return
     
-    from zeus_server_load.server import CommandServer
+    from zeus_server_app.server import CommandServer
 
     # Handle signals
     signal.signal(signal.SIGINT, signal_handler)
