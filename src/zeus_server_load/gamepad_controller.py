@@ -152,12 +152,6 @@ class GamepadController:
     def press_rb(self):
         self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER, "RB")
 
-    def press_lt(self):
-        self._press_trigger(0, "LT")
-
-    def press_rt(self):
-        self._press_trigger(1, "RT")
-
     def press_start(self):
         self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_START, "START")
 
@@ -185,25 +179,10 @@ class GamepadController:
     # Helper Methods for Actions
     def _press_button(self, button, name):
         logging.info(f"Pressing '{name}' button")
-        with self.lock:
-            self.gamepad.press_button(button)
-            self.gamepad.update()
-            time.sleep(0.1)
-            self.gamepad.release_button(button)
-            self.gamepad.update()
-
-    def _press_trigger(self, trigger, name):
-        logging.info(f"Pressing '{name}' trigger")
-        if trigger == 0:  # LT
-            self.gamepad.left_trigger(value=255)
-            self.gamepad.update()
-            time.sleep(0.1)
-            self.gamepad.left_trigger(value=0)
-        elif trigger == 1:  # RT
-            self.gamepad.right_trigger(value=255)
-            self.gamepad.update()
-            time.sleep(0.1)
-            self.gamepad.right_trigger(value=0)
+        self.gamepad.press_button(button)
+        self.gamepad.update()
+        time.sleep(0.1)
+        self.gamepad.release_button(button)
         self.gamepad.update()
 
     def _press_dpad(self, button, name):
