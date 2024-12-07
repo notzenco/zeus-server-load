@@ -6,13 +6,9 @@ import subprocess
 import requests
 import zipfile
 from colorama import init, Fore, Style
-from datetime import datetime
-import ctypes
 import sys
 import os
-import vgamepad as vg
 import subprocess
-import webbrowser
 import socket
 
 
