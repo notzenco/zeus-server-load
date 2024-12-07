@@ -101,9 +101,11 @@ class GamepadController:
 
     def movement_loop(self):
         """Movement loop that simulates random controller inputs."""
+        print("[Debug] Movement loop started")
         logging.info("Movement loop started")
         try:
             while self.movement_enabled:
+                print("[Debug] Simulating movement...")
                 logging.info("Simulating movement...")
                 duration = random.uniform(self.min_movement_duration, self.max_movement_duration)
                 start_time = time.time()
@@ -119,6 +121,7 @@ class GamepadController:
                 if not self.movement_enabled:
                     break
 
+                print(f"[Debug] Movement phase complete. Breaking for {duration} seconds.")
                 logging.info(f"Movement phase complete. Breaking for {duration} seconds.")
                 # Sleep in small increments during break
                 break_duration = random.uniform(self.min_break_duration, self.max_break_duration)
@@ -128,8 +131,10 @@ class GamepadController:
                     time.sleep(sleep_interval)
                     sleep_time += sleep_interval
         except Exception as e:
+            print(f"[Debug] Exception in movement_loop: {e}")
             logging.error(f"Exception in movement_loop: {e}")
         finally:
+            print("[Debug] Movement loop ended")
             logging.info("Movement loop ended")
 
     # Individual Button and Control Methods
