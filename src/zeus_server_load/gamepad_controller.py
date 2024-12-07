@@ -13,18 +13,17 @@ class GamepadController:
         self.lock = threading.Lock()
 
         # Default configuration values
-
         # Anti-AFK settings
         self.anti_afk_interval = 40.0  # in seconds
         self.right_bumper_duration = 0.5  # in seconds
-        self.left_bumper_duration = 0.5  # in seconds
-        self.delay_between_buttons = 2  # in seconds
+        self.left_bumper_duration = 0.5   # in seconds
+        self.delay_between_buttons = 2.0  # in seconds
 
         # Movement settings
-        self.min_movement_duration = 4.0  # in seconds
-        self.max_movement_duration = 6.0  # in seconds
-        self.min_break_duration = 3.0  # in seconds
-        self.max_break_duration = 7.0  # in seconds
+        self.min_movement_duration = 4.0   # in seconds
+        self.max_movement_duration = 6.0   # in seconds
+        self.min_break_duration = 3.0      # in seconds
+        self.max_break_duration = 7.0      # in seconds
 
     # Setter methods for configuration
     def set_anti_afk_settings(self, interval=None, right_bumper_duration=None, left_bumper_duration=None, delay_between_buttons=None):
@@ -83,9 +82,9 @@ class GamepadController:
         try:
             while self.anti_afk_enabled:
                 with self.lock:
-                    self.press_rb()
+                    self.press_rb()  # uses right_bumper_duration
                     time.sleep(self.delay_between_buttons)
-                    self.press_lb()
+                    self.press_lb()  # uses left_bumper_duration
 
                 logging.info(f"Anti-AFK: Waiting {self.anti_afk_interval} seconds")
                 # Sleep in small increments to allow prompt exit
@@ -104,7 +103,6 @@ class GamepadController:
         logging.info("Movement loop started")
         try:
             while self.movement_enabled:
-
                 logging.info("Simulating movement...")
                 duration = random.uniform(self.min_movement_duration, self.max_movement_duration)
                 start_time = time.time()
@@ -147,10 +145,12 @@ class GamepadController:
         self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y, "Y")
 
     def press_lb(self):
-        self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER, "LB")
+        # Use the left bumper duration
+        self._press_button_for_duration(vg.XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER, "LB", self.left_bumper_duration)
 
     def press_rb(self):
-        self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER, "RB")
+        # Use the right bumper duration
+        self._press_button_for_duration(vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER, "RB", self.right_bumper_duration)
 
     def press_start(self):
         self._press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_START, "START")
@@ -178,21 +178,31 @@ class GamepadController:
 
     # Helper Methods for Actions
     def _press_button(self, button, name):
-        logging.info(f"Pressing '{name}' button")
+        """Press and release a button quickly (0.1s)."""
+        logging.info(f"Pressing '{name}' button (short press)")
         self.gamepad.press_button(button)
         self.gamepad.update()
         time.sleep(0.1)
         self.gamepad.release_button(button)
         self.gamepad.update()
 
+    def _press_button_for_duration(self, button, name, duration):
+        """Press and hold a button for a specified duration, then release."""
+        logging.info(f"Pressing '{name}' button for {duration} seconds")
+        self.gamepad.press_button(button)
+        self.gamepad.update()
+        time.sleep(duration)
+        self.gamepad.release_button(button)
+        self.gamepad.update()
+
     def _press_dpad(self, button, name):
-        logging.info(f"Pressing '{name}'")
-        with self.lock:
-            self.gamepad.press_button(button)
-            self.gamepad.update()
-            time.sleep(0.1)
-            self.gamepad.release_button(button)
-            self.gamepad.update()
+        """Press a D-Pad direction briefly."""
+        logging.info(f"Pressing '{name}' (D-Pad)")
+        self.gamepad.press_button(button)
+        self.gamepad.update()
+        time.sleep(0.1)
+        self.gamepad.release_button(button)
+        self.gamepad.update()
 
     def toggle_mode(self, mode):
         """Switch between Anti-AFK and Movement mode."""
