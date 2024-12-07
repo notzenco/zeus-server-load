@@ -483,6 +483,7 @@ def download_and_install_vigem_bus():
         if not check_vigem_bus_driver():
             print("ViGEmBus driver still not detected. Exiting.")
             sys.exit(1)
+        else: return True
     except Exception as e:
         logging.error(f"Failed to launch ViGEmBus installer: {e}")
         print(f"An error occurred while launching the installer: {e}")
