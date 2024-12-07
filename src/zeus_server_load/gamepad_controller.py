@@ -194,18 +194,17 @@ class GamepadController:
 
     def _press_trigger(self, trigger, name):
         logging.info(f"Pressing '{name}' trigger")
-        with self.lock:
-            if trigger == 0:  # LT
-                self.gamepad.left_trigger(value=255)
-                self.gamepad.update()
-                time.sleep(0.1)
-                self.gamepad.left_trigger(value=0)
-            elif trigger == 1:  # RT
-                self.gamepad.right_trigger(value=255)
-                self.gamepad.update()
-                time.sleep(0.1)
-                self.gamepad.right_trigger(value=0)
+        if trigger == 0:  # LT
+            self.gamepad.left_trigger(value=255)
             self.gamepad.update()
+            time.sleep(0.1)
+            self.gamepad.left_trigger(value=0)
+        elif trigger == 1:  # RT
+            self.gamepad.right_trigger(value=255)
+            self.gamepad.update()
+            time.sleep(0.1)
+            self.gamepad.right_trigger(value=0)
+        self.gamepad.update()
 
     def _press_dpad(self, button, name):
         logging.info(f"Pressing '{name}'")
