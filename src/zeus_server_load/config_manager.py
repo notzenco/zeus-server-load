@@ -6,7 +6,7 @@ class ConfigManager:
 
     def __init__(self, db_path="hwids.db"):
         self.db_path = db_path
-        self.conn = sqlite3.connect(self.db_path)
+        self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self.create_config_table()
 
     def create_config_table(self):
