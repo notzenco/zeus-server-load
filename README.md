@@ -17,9 +17,7 @@ If you are looking for the Lobby Manager / Admin app: [Zeus Bot Lobby Manager Gi
 > **Version:** Windows x64 and Arm64 only
 
 ![Zeus Server App Screenshot](./screenshots/1.png)
-
 ![Zeus Server App Screenshot](./screenshots/2.png)
-
 ![Zeus Server App Screenshot](./screenshots/3.png)
 
 
