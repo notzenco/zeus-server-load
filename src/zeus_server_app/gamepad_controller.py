@@ -98,6 +98,7 @@ class GamepadController:
             # Anti-AFK not enabled, enable it first
             self.anti_afk_enabled = True
 
+        self.stop_movement()  # Stop movement if running
         self.anti_afk_stop_event.clear()
         self._anti_afk_thread = threading.Thread(target=self.anti_afk_loop, daemon=True)
         self._anti_afk_thread.start()
