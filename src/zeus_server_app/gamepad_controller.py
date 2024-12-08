@@ -114,8 +114,9 @@ class GamepadController:
                 logging.warning("Anti-AFK thread did not terminate within timeout.")
             else:
                 logging.info("Anti-AFK thread stopped.")
+                self._reset_gamepad()
 
-    # Thread start/stop methods for Movement
+
     def start_movement(self):
         """Start the movement loop in a separate thread. Also stops anti-afk if running."""
         if self._movement_thread and self._movement_thread.is_alive():
@@ -147,6 +148,7 @@ class GamepadController:
                 logging.warning("Movement thread did not terminate within timeout.")
             else:
                 logging.info("Movement thread stopped.")
+                self._reset_gamepad()
 
         # Since anti-afk was on by default, re-enable it if running is still True
         # and user wants it enabled again
@@ -299,3 +301,40 @@ class GamepadController:
         Returns True if stopped early (event set), False if waited full duration.
         """
         return stop_event.wait(duration)
+
+    def _reset_gamepad(self):
+        """Reset the gamepad state to neutral."""
+        with self.lock:
+            # Release all buttons (just ensure no button states remain)
+            # vgamepad doesn't track pressed buttons internally, but let's be safe:
+            for button in [
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_A,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_B,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_X,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_Y,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_START,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_BACK,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_LEFT_THUMB,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_THUMB,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_UP,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_DOWN,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_LEFT,
+                vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_RIGHT
+            ]:
+                self.gamepad.release_button(button)
+
+            # Reset triggers
+            self.gamepad.left_trigger(value=0)
+            self.gamepad.right_trigger(value=0)
+
+            # Center joysticks
+            self.gamepad.left_joystick_float(x_value_float=0.0, y_value_float=0.0)
+            self.gamepad.right_joystick_float(x_value_float=0.0, y_value_float=0.0)
+
+            # Update the gamepad to apply all these changes
+            self.gamepad.update()
+
+        logging.info("Gamepad reset to neutral state.")
+
