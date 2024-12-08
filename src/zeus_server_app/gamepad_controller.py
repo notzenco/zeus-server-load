@@ -7,14 +7,20 @@ import logging
 class GamepadController:
     def __init__(self):
         self.running = True
-        self.anti_afk_enabled = True   # Anti-AFK enabled by default
+        self.anti_afk_enabled = True
         self.movement_enabled = False
         self.gamepad = vg.VX360Gamepad()
         self.lock = threading.Lock()
 
-        # Events to signal stop for prompt interruption
+        self.start_anti_afk()
+
+        # Events for stopping loops
         self.anti_afk_stop_event = threading.Event()
         self.movement_stop_event = threading.Event()
+
+        # Threads for loops
+        self._anti_afk_thread = None
+        self._movement_thread = None
 
         # Default configuration values
         # Anti-AFK settings
@@ -80,10 +86,76 @@ class GamepadController:
         except Exception as e:
             logging.error(f"Failed to execute gamepad command '{command}': {e}")
 
+    # Thread start/stop methods for Anti-AFK
+    def start_anti_afk(self):
+        """Start the anti-AFK loop in a separate thread if not already running."""
+        if self._anti_afk_thread and self._anti_afk_thread.is_alive():
+            logging.info("Anti-AFK thread is already running.")
+            return
+
+        self.anti_afk_enabled = True
+        self.anti_afk_stop_event.clear()
+        self._anti_afk_thread = threading.Thread(target=self.anti_afk_loop, daemon=True)
+        self._anti_afk_thread.start()
+        logging.info("Anti-AFK thread started.")
+
+    def stop_anti_afk(self):
+        """Stop the anti-AFK loop."""
+        if not self.anti_afk_enabled:
+            logging.info("Anti-AFK is not running.")
+            return
+
+        self.anti_afk_enabled = False
+        self.anti_afk_stop_event.set()
+
+        if self._anti_afk_thread:
+            self._anti_afk_thread.join(timeout=10)
+            if self._anti_afk_thread.is_alive():
+                logging.warning("Anti-AFK thread did not terminate within timeout.")
+            else:
+                logging.info("Anti-AFK thread stopped.")
+
+    # Thread start/stop methods for Movement
+    def start_movement(self):
+        """Start the movement loop in a separate thread. Also stops anti-afk if running."""
+        if self._movement_thread and self._movement_thread.is_alive():
+            logging.info("Movement thread is already running.")
+            return
+
+        # Stop Anti-AFK if it's running
+        if self.anti_afk_enabled:
+            self.stop_anti_afk()
+
+        self.movement_enabled = True
+        self.movement_stop_event.clear()
+        self._movement_thread = threading.Thread(target=self.movement_loop, daemon=True)
+        self._movement_thread.start()
+        logging.info("Movement thread started.")
+
+    def stop_movement(self):
+        """Stop the movement loop. Also restart anti-afk if it was enabled by default."""
+        if not self.movement_enabled:
+            logging.info("Movement is not running.")
+            return
+
+        self.movement_enabled = False
+        self.movement_stop_event.set()
+
+        if self._movement_thread:
+            self._movement_thread.join(timeout=10)
+            if self._movement_thread.is_alive():
+                logging.warning("Movement thread did not terminate within timeout.")
+            else:
+                logging.info("Movement thread stopped.")
+
+        # Since anti-afk was on by default, re-enable it if running is still True
+        # and user wants it enabled again
+        if self.running and self.anti_afk_enabled:
+            self.start_anti_afk()
+
     def anti_afk_loop(self):
         """Anti-AFK loop that periodically presses RB and LB."""
         logging.info("Anti-AFK loop started")
-        self.anti_afk_stop_event.clear()
         try:
             while self.running:
                 if not self.anti_afk_enabled:
@@ -96,7 +168,7 @@ class GamepadController:
                     self._press_button_for_duration(vg.XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER, "LB", self.left_bumper_duration)
 
                 logging.info(f"Anti-AFK: Waiting {self.anti_afk_interval} seconds")
-                # Wait for either the interval to pass or the event to be set
+                # Wait for either the interval to pass or the event to be set, no increments here
                 if self._wait_or_stop(self.anti_afk_stop_event, self.anti_afk_interval):
                     break
         except Exception as e:
@@ -107,7 +179,6 @@ class GamepadController:
     def movement_loop(self):
         """Movement loop that simulates random joystick movements."""
         logging.info("Movement loop started")
-        self.movement_stop_event.clear()
         try:
             while self.running:
                 if not self.movement_enabled:
@@ -118,7 +189,7 @@ class GamepadController:
                 duration = random.uniform(self.min_movement_duration, self.max_movement_duration)
                 start_time = time.time()
 
-                while self.movement_enabled and (time.time() - start_time) < duration:
+                while self.movement_enabled and (time.time() - start_time) < duration and self.running:
                     move_x = random.uniform(-1, 1)
                     move_y = random.uniform(-1, 1)
                     with self.lock:
@@ -126,13 +197,12 @@ class GamepadController:
                         self.gamepad.update()
                     time.sleep(0.1)
 
-                if not self.movement_enabled:
+                if not self.movement_enabled or not self.running:
                     break
 
-                logging.info(f"Movement phase complete. Breaking for {duration} seconds.")
-                break_duration = random.uniform(self.min_break_duration, self.max_break_duration)
-                # Wait either break_duration or until movement_stop_event is set
-                if self._wait_or_stop(self.movement_stop_event, break_duration):
+                logging.info(f"Movement phase complete. Breaking for {duration:.2f} seconds.")
+                # No increments, just one wait or stop
+                if self._wait_or_stop(self.movement_stop_event, random.uniform(self.min_break_duration, self.max_break_duration)):
                     break
         except Exception as e:
             logging.error(f"Exception in movement_loop: {e}")
@@ -213,29 +283,19 @@ class GamepadController:
     def toggle_mode(self, mode):
         """Switch between Anti-AFK and Movement mode."""
         if mode == "anti_afk":
-            self.movement_enabled = False
+            self.stop_movement()      # Stop movement if running
             self.anti_afk_enabled = True
-            # When enabling anti-afk, ensure movement is off and possibly signal the movement_stop_event
-            self.movement_stop_event.set()
+            self.start_anti_afk()    # Start anti-afk if not started
             logging.info("Switched to Anti-AFK mode")
         elif mode == "movement":
-            self.anti_afk_enabled = False
+            self.stop_anti_afk()     # Stop anti-afk if running
             self.movement_enabled = True
-            # When enabling movement, ensure anti-afk is off and possibly signal the anti_afk_stop_event
-            self.anti_afk_stop_event.set()
+            self.start_movement()    # Start movement
             logging.info("Switched to Movement mode")
 
     def _wait_or_stop(self, stop_event, duration):
         """
-        Wait for `duration` seconds or until `stop_event` is set, whichever comes first.
-        Returns True if stopped early, False if waited full duration.
+        Wait for `duration` seconds or until `stop_event` is set.
+        Returns True if stopped early (event set), False if waited full duration.
         """
-        start_time = time.time()
-        while (time.time() - start_time) < duration:
-            remaining = duration - (time.time() - start_time)
-            # Wait in smaller increments if desired, or just wait min(remaining, 0.5)
-            to_wait = min(remaining, 0.5)
-            if stop_event.wait(to_wait):
-                # Event is set, stop early
-                return True
-        return False
+        return stop_event.wait(duration)
