@@ -16,9 +16,9 @@ If you are looking for the Lobby Manager / Admin app: [Zeus Bot Lobby Manager Gi
 
 > **Version:** Windows x64 and Arm64 only
 
-![Zeus Server App Screenshot](https://github.com/satyajiit/CodBo6_Bot_Manager_Zeus/raw/master/screenshots/1.png)
-![Zeus Server App Screenshot](https://github.com/satyajiit/CodBo6_Bot_Manager_Zeus/raw/master/screenshots/2.png)
-![Zeus Server App Screenshot](https://github.com/satyajiit/CodBo6_Bot_Manager_Zeus/raw/master/screenshots/3.png)
+![Zeus Server App Screenshot](https://github.com/satyajiit/zeus-server-load/raw/main/screenshots/1.png)
+![Zeus Server App Screenshot](https://github.com/satyajiit/zeus-server-load/raw/main/screenshots/2.png)
+![Zeus Server App Screenshot](https://github.com/satyajiit/zeus-server-load/raw/main/screenshots/3.png)
 
 
 ## Overview
