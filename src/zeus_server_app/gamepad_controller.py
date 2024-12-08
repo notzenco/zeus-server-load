@@ -90,6 +90,10 @@ class GamepadController:
     # Thread start/stop methods for Anti-AFK
     def start_anti_afk(self):
         """Start the anti-AFK loop in a separate thread if not already running."""
+        # If movement is running, stop it first to avoid conflicts
+        if self.movement_enabled:
+            self.stop_movement()
+
         if self._anti_afk_thread and self._anti_afk_thread.is_alive():
             logging.info("Anti-AFK thread is already running.")
             return
@@ -98,7 +102,6 @@ class GamepadController:
             # Anti-AFK not enabled, enable it first
             self.anti_afk_enabled = True
 
-        self.stop_movement()  # Stop movement if running
         self.anti_afk_stop_event.clear()
         self._anti_afk_thread = threading.Thread(target=self.anti_afk_loop, daemon=True)
         self._anti_afk_thread.start()
@@ -293,14 +296,16 @@ class GamepadController:
     def toggle_mode(self, mode):
         """Switch between Anti-AFK and Movement mode."""
         if mode == "anti_afk":
-            self.stop_movement()      # Stop movement if running
+            # If movement is running, stop it
+            self.stop_movement()
             self.anti_afk_enabled = True
-            self.start_anti_afk()    # Start anti-afk if not started
+            self.start_anti_afk()
             logging.info("Switched to Anti-AFK mode")
         elif mode == "movement":
-            self.stop_anti_afk()     # Stop anti-afk if running
+            # If anti-afk is running, stop it
+            self.stop_anti_afk()
             self.movement_enabled = True
-            self.start_movement()    # Start movement
+            self.start_movement()
             logging.info("Switched to Movement mode")
 
     def _wait_or_stop(self, stop_event, duration):
@@ -340,7 +345,8 @@ class GamepadController:
             self.gamepad.left_joystick_float(x_value_float=0.0, y_value_float=0.0)
             self.gamepad.right_joystick_float(x_value_float=0.0, y_value_float=0.0)
 
-            # Update the gamepad to apply all changes
             self.gamepad.update()
 
         logging.info("Gamepad reset to neutral state.")
+
+
