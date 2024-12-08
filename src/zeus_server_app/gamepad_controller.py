@@ -12,8 +12,6 @@ class GamepadController:
         self.gamepad = vg.VX360Gamepad()
         self.lock = threading.Lock()
 
-        self.start_anti_afk()
-
         # Events for stopping loops
         self.anti_afk_stop_event = threading.Event()
         self.movement_stop_event = threading.Event()
@@ -34,6 +32,8 @@ class GamepadController:
         self.max_movement_duration = 6.0  # seconds
         self.min_break_duration = 3.0     # seconds
         self.max_break_duration = 7.0     # seconds
+
+        self.start_anti_afk()
 
     # Configuration Setters
     def set_anti_afk_settings(self, interval=None, right_bumper_duration=None, left_bumper_duration=None, delay_between_buttons=None):
