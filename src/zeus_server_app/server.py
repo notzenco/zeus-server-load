@@ -5,7 +5,6 @@ from zeus_server_app.gamepad_controller import GamepadController
 from zeus_server_app.chrome_manager import ChromeManager
 from zeus_server_app.utils import tail_lines
 
-
 class CommandServer:
     """A server that handles client commands and enforces HWID checks."""
 
@@ -17,8 +16,6 @@ class CommandServer:
         self.is_running = True
         self.config_manager = config_manager
         self.chrome_manager = ChromeManager(config_manager)  # Instantiate ChromeManager
-        self._anti_afk_thread = None
-        self._movement_thread = None
         self.gamepad_controller = GamepadController()
 
     def handle_client(self, conn, addr):
@@ -50,13 +47,13 @@ class CommandServer:
                     if data == "healthCheck":
                         conn.sendall("alive".encode())
                     elif data in self.gamepad_controller.get_supported_commands():
-                        self.execute_gamepad_command(data)
+                        self.gamepad_controller.execute_gamepad_command(data)
                         conn.sendall(f"Executed command: {data}".encode())
                     elif data == "start_anti_afk":
-                        self.start_anti_afk()
+                        self.gamepad_controller.start_anti_afk()
                         conn.sendall("Anti-AFK started.".encode())
                     elif data == "stop_anti_afk":
-                        self.stop_anti_afk()
+                        self.gamepad_controller.stop_anti_afk()
                         conn.sendall("Anti-AFK stopped.".encode())
                     elif data == "install_tampermonkey_script":
                         script_url = "https://github.com/redphx/better-xcloud/releases/latest/download/better-xcloud.user.js"
@@ -70,10 +67,10 @@ class CommandServer:
                         self.chrome_manager.open_all_chrome_profiles()
                         conn.sendall("Opened all Chrome profiles.".encode())
                     elif data == "start_movement":
-                        self.start_movement()
+                        self.gamepad_controller.start_movement()
                         conn.sendall("Movement started.".encode())
                     elif data == "stop_movement":
-                        self.stop_movement()
+                        self.gamepad_controller.stop_movement()
                         conn.sendall("Movement stopped.".encode())
                     elif data == "tail_logs":
                         try:
@@ -91,88 +88,6 @@ class CommandServer:
 
             except Exception as e:
                 logging.error(f"Error handling client {addr}: {e}")
-
-
-
-    def execute_gamepad_command(self, command):
-        """Execute the corresponding gamepad command."""
-        try:
-            method = getattr(self.gamepad_controller, command)
-            method()
-        except Exception as e:
-            logging.error(f"Failed to execute gamepad command '{command}': {e}")
-
-    def start_anti_afk(self):
-        """Start the anti-AFK loop."""
-        if self.gamepad_controller.anti_afk_enabled:
-            logging.info("Anti-AFK is already running.")
-            return
-
-        self.gamepad_controller.anti_afk_enabled = True
-
-        if self._anti_afk_thread is not None and self._anti_afk_thread.is_alive():
-            logging.info("Anti-AFK thread is already running.")
-        else:
-            self._anti_afk_thread = threading.Thread(target=self.gamepad_controller.anti_afk_loop, daemon=True)
-            self._anti_afk_thread.start()
-            logging.info("Anti-AFK thread started.")
-
-        logging.info("Anti-AFK started.")
-
-    def stop_anti_afk(self):
-        """Stop the anti-AFK loop."""
-        if not self.gamepad_controller.anti_afk_enabled:
-            logging.info("Anti-AFK is not running.")
-            return
-
-        self.gamepad_controller.anti_afk_enabled = False
-
-        if hasattr(self, '_anti_afk_thread'):
-            self._anti_afk_thread.join(timeout=10)  # Wait up to 10 seconds
-            if self._anti_afk_thread.is_alive():
-                logging.warning("Anti-AFK thread did not terminate within timeout.")
-            else:
-                logging.info("Anti-AFK thread stopped.")
-        else:
-            logging.warning("Anti-AFK thread was not found.")
-
-        logging.info("Anti-AFK stopped.")
-
-    def start_movement(self):
-        """Start the movement loop."""
-        if self.gamepad_controller.movement_enabled:
-            logging.info("Movement is already running.")
-            return
-
-        self.gamepad_controller.movement_enabled = True
-
-        if self._movement_thread is not None and self._movement_thread.is_alive():
-            logging.info("Movement thread is already running.")
-        else:
-            self._movement_thread = threading.Thread(target=self.gamepad_controller.movement_loop, daemon=True)
-            self._movement_thread.start()
-            logging.info("Movement thread started.")
-
-        logging.info("Movement started.")
-
-    def stop_movement(self):
-        """Stop the movement loop."""
-        if not self.gamepad_controller.movement_enabled:
-            logging.info("Movement is not running.")
-            return
-
-        self.gamepad_controller.movement_enabled = False
-
-        if self._movement_thread is not None:
-            self._movement_thread.join(timeout=10)  # Wait up to 10 seconds
-            if self._movement_thread.is_alive():
-                logging.warning("Movement thread did not terminate within timeout.")
-            else:
-                logging.info("Movement thread stopped.")
-        else:
-            logging.warning("Movement thread was not found.")
-
-        logging.info("Movement stopped.")
 
     def start(self):
         """Start the server."""
@@ -195,14 +110,13 @@ class CommandServer:
         logging.info("Shutting down server...")
         self.gamepad_controller.running = False
 
-
         # Stop Anti-AFK if running
         if self.gamepad_controller.anti_afk_enabled:
-            self.stop_anti_afk()
+            self.gamepad_controller.stop_anti_afk()
 
         # Stop Movement Loop if running
         if self.gamepad_controller.movement_enabled:
-            self.stop_movement()
+            self.gamepad_controller.stop_movement()
 
         self.is_running = False
         self.server_socket.close()

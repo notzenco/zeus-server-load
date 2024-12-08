@@ -7,12 +7,12 @@ import logging
 class GamepadController:
     def __init__(self):
         self.running = True
-        self.anti_afk_enabled = True
+        self.anti_afk_enabled = True    # Anti-AFK enabled by default
         self.movement_enabled = False
         self.gamepad = vg.VX360Gamepad()
         self.lock = threading.Lock()
 
-        # Events for stopping loops
+        # Events for stopping loops promptly
         self.anti_afk_stop_event = threading.Event()
         self.movement_stop_event = threading.Event()
 
@@ -33,6 +33,7 @@ class GamepadController:
         self.min_break_duration = 3.0     # seconds
         self.max_break_duration = 7.0     # seconds
 
+        # Start anti-afk by default
         self.start_anti_afk()
 
     # Configuration Setters
@@ -93,7 +94,10 @@ class GamepadController:
             logging.info("Anti-AFK thread is already running.")
             return
 
-        self.anti_afk_enabled = True
+        if not self.anti_afk_enabled:
+            # Anti-AFK not enabled, enable it first
+            self.anti_afk_enabled = True
+
         self.anti_afk_stop_event.clear()
         self._anti_afk_thread = threading.Thread(target=self.anti_afk_loop, daemon=True)
         self._anti_afk_thread.start()
@@ -108,15 +112,17 @@ class GamepadController:
         self.anti_afk_enabled = False
         self.anti_afk_stop_event.set()
 
-        if self._anti_afk_thread:
+        if self._anti_afk_thread is not None:
             self._anti_afk_thread.join(timeout=10)
             if self._anti_afk_thread.is_alive():
                 logging.warning("Anti-AFK thread did not terminate within timeout.")
             else:
                 logging.info("Anti-AFK thread stopped.")
-                self._reset_gamepad()
+            self._anti_afk_thread = None
 
+        self._reset_gamepad()
 
+    # Thread start/stop methods for Movement
     def start_movement(self):
         """Start the movement loop in a separate thread. Also stops anti-afk if running."""
         if self._movement_thread and self._movement_thread.is_alive():
@@ -134,24 +140,27 @@ class GamepadController:
         logging.info("Movement thread started.")
 
     def stop_movement(self):
-        """Stop the movement loop. Also restart anti-afk if it was enabled by default."""
+        """Stop the movement loop. Also re-start anti-afk if it was originally enabled."""
         if not self.movement_enabled:
             logging.info("Movement is not running.")
+            # Even if not running, reset the gamepad to ensure neutral state
+            self._reset_gamepad()
             return
 
         self.movement_enabled = False
         self.movement_stop_event.set()
 
-        if self._movement_thread:
+        if self._movement_thread is not None:
             self._movement_thread.join(timeout=10)
             if self._movement_thread.is_alive():
                 logging.warning("Movement thread did not terminate within timeout.")
             else:
                 logging.info("Movement thread stopped.")
-                self._reset_gamepad()
+            self._movement_thread = None
 
-        # Since anti-afk was on by default, re-enable it if running is still True
-        # and user wants it enabled again
+        self._reset_gamepad()
+
+        # Since anti-afk was on by default, re-enable it if still running
         if self.running and self.anti_afk_enabled:
             self.start_anti_afk()
 
@@ -170,7 +179,6 @@ class GamepadController:
                     self._press_button_for_duration(vg.XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER, "LB", self.left_bumper_duration)
 
                 logging.info(f"Anti-AFK: Waiting {self.anti_afk_interval} seconds")
-                # Wait for either the interval to pass or the event to be set, no increments here
                 if self._wait_or_stop(self.anti_afk_stop_event, self.anti_afk_interval):
                     break
         except Exception as e:
@@ -203,7 +211,6 @@ class GamepadController:
                     break
 
                 logging.info(f"Movement phase complete. Breaking for {duration:.2f} seconds.")
-                # No increments, just one wait or stop
                 if self._wait_or_stop(self.movement_stop_event, random.uniform(self.min_break_duration, self.max_break_duration)):
                     break
         except Exception as e:
@@ -305,8 +312,7 @@ class GamepadController:
     def _reset_gamepad(self):
         """Reset the gamepad state to neutral."""
         with self.lock:
-            # Release all buttons (just ensure no button states remain)
-            # vgamepad doesn't track pressed buttons internally, but let's be safe:
+            # Release all buttons
             for button in [
                 vg.XUSB_BUTTON.XUSB_GAMEPAD_A,
                 vg.XUSB_BUTTON.XUSB_GAMEPAD_B,
@@ -333,8 +339,7 @@ class GamepadController:
             self.gamepad.left_joystick_float(x_value_float=0.0, y_value_float=0.0)
             self.gamepad.right_joystick_float(x_value_float=0.0, y_value_float=0.0)
 
-            # Update the gamepad to apply all these changes
+            # Update the gamepad to apply all changes
             self.gamepad.update()
 
         logging.info("Gamepad reset to neutral state.")
-
