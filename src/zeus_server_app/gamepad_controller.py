@@ -22,9 +22,9 @@ class GamepadController:
 
         # Default configuration values
         # Anti-AFK settings
-        self.anti_afk_interval = 40.0     # seconds
-        self.right_bumper_duration = 0.1  # seconds
-        self.left_bumper_duration = 0.1   # seconds
+        self.anti_afk_interval = 30.0     # seconds
+        self.right_bumper_duration = 0.4  # seconds
+        self.left_bumper_duration = 0.4   # seconds
         self.delay_between_buttons = 1.0  # seconds
 
         # Movement settings
